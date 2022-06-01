@@ -21,66 +21,141 @@
 		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     		attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 		}).addTo(map);
-		var Sport= L.layerGroup().addTo(map);
+		
 		var Pizzeria=L.layerGroup().addTo(map);
 		var SportIcon = L.icon({iconUrl: 'fire-B_G.svg',iconSize: [100, 100] });
-		L.marker([45.732333858926715,4.8260937761478795],{icon: SportIcon }).addTo(Sport).bindPopup("<h3>Meriem Club</h3></br>Sale de sport pour Femme</br>Du Samedi au Jeudi</br>Tel 029999999");
-		L.marker([45.793118996773316,4.808583763718545],{icon: SportIcon }).addTo(Sport).bindPopup("<h3>FormeInshape</h3></br>Sale pour Homme et Femme</br>7/7jour</br>Tel 029000000");
+		
 		var PizzaIcon = L.icon({iconUrl: 'v.svg',iconSize: [60, 60] });
 		L.marker([45.69,4.79],{icon: PizzaIcon }).addTo(Pizzeria).bindPopup("<h3>Hamou's Pizza</h3></br>De 11h a 21h</br>Sur place/Livraison</br>Tel 029777777");
 		L.marker([45.72,4.78],{icon: PizzaIcon }).addTo(Pizzeria).bindPopup("<h3>Pizza Family</h3></br>De 10h a 22h</br>7/7jour</br>Tel 029888888");
 
 
-		var info = {
-			method: 'GET',
-			mode: 'cors',
-			cache: 'default'};
-		fetch('http://vps.cpe-sn.fr:8081/fire',info)
-		vardump(info)
+		fetch("http://vps.cpe-sn.fr:8081/fire")
+        .then(response => response.json())
+        .then(function(response) {
+			for (let i = 0; i < response.length; i++) {
+				var id =response[i].id
+				var type = response[i].type
+				var intensity = response[i].intensity
+				var range = response[i].range
+				var lon = response[i].lon
+				var lat = response[i].lat
+				var res = L.layerGroup().addTo(map);
+				L.marker([lat,lon],{icon: SportIcon }).addTo(response[i].type).bindPopup("<h3>"+"id:"+type+"</h3>"+"type:"+"</br>"+type+"</br>"+"intensity:"+intensity+"</br>"+"range:"+range);
+
+			}
+
+  
+
+
+
+			
+		})
+
+		
 		
 		
 
 		
 	</script>
-	<form>
-  		<fieldset>
+	<form name="test" id="form" >
+  		<fieldset name="test">
   			<legend>Couches</legend>
     			<div>
-      				<input type="checkbox" id="pizzeria" name="interest" value="pizzeria" checked>
-      				<label for="pizzeria">Pizzerias</label>
+      				<input type="checkbox" id="b_gasoline" name="interest" value="b_gasoline" checked>
+      				<label for="b_gasoline">B_Gasoline</label>
     			</div>
     			<div>
-      				<input type="checkbox" id="sport" name="interest" value="sport" checked>
-      				<label for="sport">Salles de Sport</label>
+      				<input type="checkbox" id="c_flammable_gases" name="interest" value="c_flammable_gases" checked>
+      				<label for="sport">C_Flammable_Gases</label>
     			</div>
+				<div>
+					<input type="checkbox" id="A" name="interest" value="A" checked>
+					<label for="sport">A</label>
+			  </div>
+			  <div>
+				<input type="checkbox" id="B_Alcohol" name="interest" value="B_Alcohol" checked>
+				<label for="sport">B_Alcohol</label>
+		  	</div>
+		  	<div>
+				<input type="checkbox" id="B_Plastics" name="interest" value="B_Plastics" checked>
+				<label for="sport">B_Plastics</label>
+	  		</div>
+			<div>
+				<input type="checkbox" id="D_Metals" name="interest" value="D_Metals" checked>
+				<label for="sport">D_Metals</label>
+			</div>
+			<div>
+				<input type="checkbox" id="E_Electrics" name="interest" value="E_Electrics" checked>
+				<label for="sport">E_Electrics</label>
+			</div>
+			<div>
+					<input type="range" min="0" max="50" class="slider" value="25" name="range" id="range">range
+					<p>Value: <span id="demo"></span></p>
+
+			</div>
+			<div>
+				<input type="range"  min="0" max="50" name="intensity" id="intensity">intensity
+				<p>Value: <span id="demo1"></span></p>
+
+		</div>
+		<input type="submit" id="btn" value="submit">
+
 		</fieldset>
 	</form>
 	<script>
-	var sportCheckbox = document.querySelector('input[value="sport"]');
+		var form = document.getElementById('form');
+		form.onsubmit = function() {
+    	filtre()
+};
 
-	sportCheckbox.onchange = function() {
-		if(sportCheckbox.checked) {
-						map.addLayer(Sport);
+	
+
+
+	</script>
+
+	<script>
+
+var slider = document.getElementById("range");
+var output = document.getElementById("demo");
+		output.innerHTML = slider.value; // Display the default slider value
+
+		// Update the current slider value (each time you drag the slider handle)
+		slider.oninput = function() {
+		output.innerHTML = this.value;
+		}
+		var slider1 = document.getElementById("intensity");
+		var output1 = document.getElementById("demo1");
+		output1.innerHTML = slider.value; // Display the default slider value
+
+		// Update the current slider value (each time you drag the slider handle)
+		slider1.oninput = function() {
+		output1.innerHTML = this.value;
+		}
+		
+	var b_gasoline = document.querySelector('input[value="b_gasoline"]');
+	var c_flammable_gases = document.querySelector('input[value="c_flammable_gases"]')
+	var A = document.querySelector('input[value="A"]')
+	var B_Alcohol = document.querySelector('input[value="B_Alcohol"]');
+	var B_Plastics = document.querySelector('input[value="B_Plastics"]');
+	var D_Metals = document.querySelector('input[value="D_Metals"]');
+	var E_Electrics = document.querySelector('input[value="E_Electrics"]');
+	var range = document.querySelector('input[value="range"]');
+	var intensity = document.querySelector('input[value="intensity"]');
+
+	b_gasoline.onchange = function() {
+
+		if(b_gasoline.checked) {
+						map.addLayer(fire);
 	    
 	  				  } 
 	 	else			  {
-						map.removeLayer(Sport);
+						map.removeLayer(fire);
 	    
 	  				  }
 	};
 
-	var pizzeriaCheckbox = document.querySelector('input[value="pizzeria"]');
-
-	pizzeriaCheckbox.onchange = function() {
-	      if(pizzeriaCheckbox.checked) {
-	                    			map.addLayer(Pizzeria);
-	    
-	  				   } 
-	     else {
-					       map.removeLayer(Pizzeria);
-		    
-	  				  }
-	};
+	
 	</script>
 	<p id="xy">0,0<p>
 	<script>

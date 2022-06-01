@@ -62,3 +62,13 @@ function myFunction(){
                     }
     if (trouvee==0){alert("Untrouvable");}
 }
+var info = {
+    method: 'GET',
+    mode: 'cors',
+    cache: 'default'};
+fetch('http://vps.cpe-sn.fr:8081/fire',info)
+.then(function(response){
+return response.json();
+}
+)
+vardump(info)
