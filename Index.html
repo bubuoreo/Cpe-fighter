@@ -31,19 +31,23 @@
 		L.marker([45.72,4.78],{icon: PizzaIcon }).addTo(Pizzeria).bindPopup("<h3>Pizza Family</h3></br>De 10h a 22h</br>7/7jour</br>Tel 029888888");
 
 
-		var info = {
-			method: 'GET',
-			mode: 'cors',
-			cache: 'default'};
-		fetch('http://vps.cpe-sn.fr:8081/fire',info)
-		vardump(info)
+		fetch("http://vps.cpe-sn.fr:8081/fire")
+        .then(response => response.json())
+        .then(function(response) {
+
+			console.log(response)
+			document.getElementById('fire')=response[0][0]
+
+		})
+		.catch(error => alert("Erreur : " + error));
+		
 		
 		
 
 		
 	</script>
-	<form>
-  		<fieldset>
+	<form name="test">
+  		<fieldset name="test">
   			<legend>Couches</legend>
     			<div>
       				<input type="checkbox" id="pizzeria" name="interest" value="pizzeria" checked>
@@ -53,6 +57,10 @@
       				<input type="checkbox" id="sport" name="interest" value="sport" checked>
       				<label for="sport">Salles de Sport</label>
     			</div>
+				<div>
+					<input type="text" name="fire" id="fire">oui
+
+				</div>
 		</fieldset>
 	</form>
 	<script>
