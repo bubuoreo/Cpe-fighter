@@ -14,15 +14,15 @@ async function createVehicule() {
     var liquidQuantity = document.getElementById("liquidQuantity").value;
 
     var facility = await getFacility(idFacility);
-    console.log(facility.);
+    var parsedFacility = JSON.parse(facility);
 
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
         "facilityRefID": idFacility,
-        "lat": 0,
-        "lon": 0,
+        "lat": parsedFacility.lat,
+        "lon": parsedFacility.lon,
         "type": typeVehicle,
         "liquidType": liquidType,
         "crewMember": nbCrewMember,

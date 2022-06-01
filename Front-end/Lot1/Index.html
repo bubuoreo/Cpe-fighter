@@ -23,14 +23,12 @@
 		}).addTo(map);
 		
 		var fire= L.layerGroup().addTo(map);
-		var Pizzeria=L.layerGroup().addTo(map);
-		var SportIcon = L.icon({iconUrl: 'fire-B_G.svg',iconSize: [100, 100] });
+		var facility= L.layerGroup().addTo(map);
+		var vehicle= L.layerGroup().addTo(map);
+		var fireIcon = L.icon({iconUrl: 'fire-B_G.svg',iconSize: [30, 30] });
+		var vehicleIcon = L.icon({iconUrl: './vehicle.svg',iconSize: [30, 30] });
+		var facilityIcon = L.icon({iconUrl: './facility.svg',iconSize: [30, 30] });
 		
-		var PizzaIcon = L.icon({iconUrl: 'v.svg',iconSize: [60, 60] });
-		L.marker([45.69,4.79],{icon: PizzaIcon }).addTo(Pizzeria).bindPopup("<h3>Hamou's Pizza</h3></br>De 11h a 21h</br>Sur place/Livraison</br>Tel 029777777");
-		L.marker([45.72,4.78],{icon: PizzaIcon }).addTo(Pizzeria).bindPopup("<h3>Pizza Family</h3></br>De 10h a 22h</br>7/7jour</br>Tel 029888888");
-
-
 		fetch("http://vps.cpe-sn.fr:8081/fire")
         .then(response => response.json())
         .then(function(response) {
@@ -41,20 +39,53 @@
 				var range = response[i].range
 				var lon = response[i].lon
 				var lat = response[i].lat
-				L.marker([lat,lon],{icon: SportIcon }).addTo(fire).bindPopup("<h3>"+"id:"+id+"</h3>"+"type:"+"</br>"+type+"</br>"+"intensity:"+intensity+"</br>"+"range:"+range);
-
+				L.marker([lat,lon],{icon: fireIcon }).addTo(fire).bindPopup("<h3>"+"id:"+id+"</h3>"+"type:"+"</br>"+type+"</br>"+"intensity:"+intensity+"</br>"+"range:"+range);
 			}
-
-  
-
-
-
-			
 		})
 
-		
-		
-		
+		fetch("http://vps.cpe-sn.fr:8081/facility")
+        .then(response => response.json())
+        .then(function(response) {
+			for (let i = 0; i < response.length; i++) {
+				var id =response[i].id
+				var type = response[i].type
+				var intensity = response[i].intensity
+				var range = response[i].range
+				var lon = response[i].lon
+				var lat = response[i].lat
+				L.marker([lat,lon],{icon: fireIcon }).addTo(fire).bindPopup("<h3>"+"id:"+id+"</h3>"+"type:"+"</br>"+type+"</br>"+"intensity:"+intensity+"</br>"+"range:"+range);
+			}
+		})
+
+		fetch("http://vps.cpe-sn.fr:8081/facility")
+        .then(response => response.json())
+        .then(function(response) {
+			for (let i = 0; i < response.length; i++) {
+				var name =response[i].name
+				var space = response[i].maxVehicleSpace
+				var capacity = response[i].peopleCapacity
+				var vehicleIdSet = response[i].vehicleIdSet
+				var peopleIdSet = response[i].peopleIdSet
+				var lon = response[i].lon
+				var lat = response[i].lat
+				L.marker([lat,lon],{icon: facilityIcon }).addTo(facility).bindPopup("<h3>"+name+"</h3>"+"maxVehicleSpace:"+space+"</br>peopleCapacity"+capacity+"</br>vehicleIdSet:"+vehicleIdSet+"</br>peopleIdSet:"+peopleIdSet+"</br>TeamUuid:********");
+			}
+		})
+		fetch("http://vps.cpe-sn.fr:8081/vehicle")
+        .then(response => response.json())
+        .then(function(response) {
+			for (let i = 0; i < response.length; i++) {
+				var type =response[i].type
+				var id =response[i].id
+				var crew = response[i].crewMember
+				var fuel = response[i].fuel
+				var liquidQuantity = response[i].liquidQuantity
+				var liquidType = response[i].liquidType
+				var lon = response[i].lon
+				var lat = response[i].lat
+				L.marker([lat,lon],{icon: vehicleIcon }).addTo(vehicle).bindPopup("<h3>"+type+" "+id+"</h3>"+"crewMember:"+crew+"</br>fuel"+fuel+"</br>liquidQuantity:"+liquidQuantity+"</br>liquidType:"+liquidType);
+			}
+		})
 
 		
 	</script>
