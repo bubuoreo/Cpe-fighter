@@ -21,36 +21,36 @@
 		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     		attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 		}).addTo(map);
-		
-		var fire= L.layerGroup().addTo(map);
-		var Pizzeria=L.layerGroup().addTo(map);
+
+		var B_Gasoline = L.layerGroup().addTo(map);
+        var C_Flammable_Gases = L.layerGroup().addTo(map);
+        var A = L.layerGroup().addTo(map);
+        var B_Alcohol = L.layerGroup().addTo(map);
+        var B_Plastics = L.layerGroup().addTo(map);
+        var D_Metals = L.layerGroup().addTo(map);
+        var E_Electrics = L.layerGroup().addTo(map);
+        var Pizzeria=L.layerGroup().addTo(map);
 		var SportIcon = L.icon({iconUrl: 'fire-B_G.svg',iconSize: [100, 100] });
 		
 		var PizzaIcon = L.icon({iconUrl: 'v.svg',iconSize: [60, 60] });
-		L.marker([45.69,4.79],{icon: PizzaIcon }).addTo(Pizzeria).bindPopup("<h3>Hamou's Pizza</h3></br>De 11h a 21h</br>Sur place/Livraison</br>Tel 029777777");
-		L.marker([45.72,4.78],{icon: PizzaIcon }).addTo(Pizzeria).bindPopup("<h3>Pizza Family</h3></br>De 10h a 22h</br>7/7jour</br>Tel 029888888");
-
-
+		
 		fetch("http://vps.cpe-sn.fr:8081/fire")
         .then(response => response.json())
         .then(function(response) {
 			for (let i = 0; i < response.length; i++) {
 				var id =response[i].id
 				var type = response[i].type
+				console.log(typeof type)
+				console.log(typeof B_Gasoline)
 				var intensity = response[i].intensity
 				var range = response[i].range
 				var lon = response[i].lon
 				var lat = response[i].lat
-				L.marker([lat,lon],{icon: SportIcon }).addTo(fire).bindPopup("<h3>"+"id:"+id+"</h3>"+"type:"+"</br>"+type+"</br>"+"intensity:"+intensity+"</br>"+"range:"+range);
+				L.marker([lat,lon],{icon: SportIcon }).addTo(JSON.parse(response)).bindPopup("<h3>"+"id:"+id+"</h3>"+"type:"+"</br>"+type+"</br>"+"intensity:"+intensity+"</br>"+"range:"+range);
 
 			}
-
-  
-
-
-
-			
 		})
+
 
 		
 		
