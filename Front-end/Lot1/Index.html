@@ -37,7 +37,23 @@
         var B_Plastics = L.layerGroup().addTo(map);
         var D_Metals = L.layerGroup().addTo(map);
         var E_Electrics = L.layerGroup().addTo(map);
+		//var table = new Map('B_Gasoline',B_Gasoline,'C_Flammable_Gases',C_Flammable_Gases, 'A',A,'B_Alcohol',B_Alcohol,'B_Plastics',B_Plastics,'D_Metals',D_Metals,'E_Electrics',E_Electrics);
+		const person = new Map([
+			['B_Gasoline', B_Gasoline],
+			['C_Flammable_Gases', C_Flammable_Gases],
+			["age", 30],
+			['A', A],
+			['B_Alcohol', B_Alcohol],
+			["B_Plastics", B_Plastics],
+			['D_Metals', D_Metals],
+			['E_Electrics', E_Electrics]
+			]);
+
+
 		
+
+
+
 		fetch("http://vps.cpe-sn.fr:8081/fire")
         .then(response => response.json())
         .then(function(response) {
@@ -50,7 +66,7 @@
 				var range = response[i].range
 				var lon = response[i].lon
 				var lat = response[i].lat
-				L.marker([lat,lon],{icon: fireIcon }).addTo(fire).bindPopup("<h3>"+"id:"+id+"</h3>"+"type:"+"</br>"+type+"</br>"+"intensity:"+intensity+"</br>"+"range:"+range);
+				L.marker([lat,lon],{icon: fireIcon }).addTo(person.get(response[i].type)).bindPopup("<h3>"+"id:"+id+"</h3>"+"type:"+"</br>"+type+"</br>"+"intensity:"+intensity+"</br>"+"range:"+range);
 			}
 		})
 
@@ -98,23 +114,23 @@
       				<label for="sport">C_Flammable_Gases</label>
     			</div>
 				<div>
-					<input type="checkbox" id="A" name="interest" value="A" checked>
+					<input type="checkbox" id="A" name="interest" value="a" checked>
 					<label for="sport">A</label>
 			  </div>
 			  <div>
-				<input type="checkbox" id="B_Alcohol" name="interest" value="B_Alcohol" checked>
+				<input type="checkbox" id="B_Alcohol" name="interest" value="b_alcohol" checked>
 				<label for="sport">B_Alcohol</label>
 		  	</div>
 		  	<div>
-				<input type="checkbox" id="B_Plastics" name="interest" value="B_Plastics" checked>
+				<input type="checkbox" id="B_Plastics" name="interest" value="b_plastics" checked>
 				<label for="sport">B_Plastics</label>
 	  		</div>
 			<div>
-				<input type="checkbox" id="D_Metals" name="interest" value="D_Metals" checked>
+				<input type="checkbox" id="D_Metals" name="interest" value="d_metals" checked>
 				<label for="sport">D_Metals</label>
 			</div>
 			<div>
-				<input type="checkbox" id="E_Electrics" name="interest" value="E_Electrics" checked>
+				<input type="checkbox" id="E_Electrics" name="interest" value="e_electrics" checked>
 				<label for="sport">E_Electrics</label>
 			</div>
 			<div>
@@ -127,15 +143,13 @@
 				<p>Value: <span id="demo1"></span></p>
 
 		</div>
-		<input type="submit" id="btn" value="submit">
+		
 
 		</fieldset>
 	</form>
 	<script>
-		var form = document.getElementById('form');
-		form.onsubmit = function() {
-    	filtre()
-};
+	
+
 
 	
 
@@ -163,24 +177,90 @@ var output = document.getElementById("demo");
 		
 	var b_gasoline = document.querySelector('input[value="b_gasoline"]');
 	var c_flammable_gases = document.querySelector('input[value="c_flammable_gases"]')
-	var A = document.querySelector('input[value="A"]')
-	var B_Alcohol = document.querySelector('input[value="B_Alcohol"]');
-	var B_Plastics = document.querySelector('input[value="B_Plastics"]');
-	var D_Metals = document.querySelector('input[value="D_Metals"]');
-	var E_Electrics = document.querySelector('input[value="E_Electrics"]');
+	var a = document.querySelector('input[value="a"]')
+	var b_alcohol = document.querySelector('input[value="b_alcohol"]');
+	var b_plastics = document.querySelector('input[value="b_plastics"]');
+	var d_metals = document.querySelector('input[value="d_metals"]');
+	var e_electrics = document.querySelector('input[value="e_electrics"]');
 	var range = document.querySelector('input[value="range"]');
 	var intensity = document.querySelector('input[value="intensity"]');
 
 	b_gasoline.onchange = function() {
 
 		if(b_gasoline.checked) {
-						map.addLayer(fire);
+						map.addLayer(B_Gasoline);
 	    
 	  				  } 
 	 	else			  {
-						map.removeLayer(fire);
+						map.removeLayer(B_Gasoline);
 	    
 	  				  }
+	};
+	c_flammable_gases.onchange = function() {
+
+	if(c_flammable_gases.checked) {
+					map.addLayer(C_Flammable_Gases);
+
+					} 
+	else			  {
+					map.removeLayer(C_Flammable_Gases);
+
+					}
+	};
+	a.onchange = function() {
+
+	if(a.checked) {
+					map.addLayer(A);
+
+					} 
+	else			  {
+					map.removeLayer(A);
+
+					}
+	};
+	b_alcohol.onchange = function() {
+
+	if(b_alcohol.checked) {
+					map.addLayer(B_Alcohol);
+
+					} 
+	else			  {
+					map.removeLayer(B_Alcohol);
+
+					}
+	};
+	b_plastics.onchange = function() {
+
+	if(b_plastics.checked) {
+					map.addLayer(B_Plastics);
+
+					} 
+	else			  {
+					map.removeLayer(B_Plastics);
+
+					}
+	};
+	d_metals.onchange = function() {
+
+	if(d_metals.checked) {
+					map.addLayer(D_Metals);
+
+					} 
+	else			  {
+					map.removeLayer(D_Metals);
+
+					}
+	};
+	e_electrics.onchange = function() {
+
+	if(e_electrics.checked) {
+					map.addLayer(E_Electrics);
+
+					} 
+	else			  {
+					map.removeLayer(E_Electrics);
+
+					}
 	};
 
 	
