@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire création véhicule</title>
+    <script src="../JS/vehicule.js"></script>
+</head>
+<body>
+    <form action="../../Lot1/Index.html">
+        <p>Type de véhicule :</p>
+        <select name="typeVehicle" size="max" id="typeVehicle">
+            <option value="None" selected>Selectionner le type de véhicule</option>
+            <option value="CAR">CAR</option>
+            <option value="FIRE_ENGINE">FIRE_ENGINE</option>
+            <option value="PUMPER_TRUCK">PUMPER_TRUCK</option>
+            <option value="WATER_TENDER">CWATER_TENDERAR</option>
+            <option value="TURNTABLE_LADDER_TRUCK">TURNTABLE_LADDER_TRUCK</option>
+            <option value="TRUCK">TRUCK</option>
+        </select>
+        <p>Caserne d'affectation :</p>
+        <input type="number" name="idFacility" id="idFacility">
+        <!-- possible de récupérer les coordonnées de la caserne renseignée en automatique -->
+        <!-- <p>Lattitude :</p>
+        <input type="text" name="lattitude" id="lattitude">
+        <p>Longitude :</p>
+        <input type="text" name="longitude" id="longitude"> -->
+        <p>Type de liquide :</p>
+        <select name="liquidType" id="liquidType">
+            <option value="ALL">ALL</option>
+        </select>
+        <p>Nombre de membre d'équipage affecté:</p>
+        <input type="number" name="nbCrewMember" id="nbCrewMember">
+        <p>Nombre de litres d'essence :</p>
+        <input type="number" name="fuel" id="fuel">
+        <p>Quantité de liquide transportée :</p>
+        <input type="number" name="liquidQuantity" id="liquidQuantity">
+
+        <button id="buttonCreate" type="button" onclick="createVehicule()">Créer</button>
+</body>
+</html>

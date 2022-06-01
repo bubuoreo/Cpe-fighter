@@ -42,7 +42,7 @@ async function createVehicule() {
     .then(result => console.log(result))
     .catch(error => console.log('error', error));
     console.log("création d'un véhicule");
-
+    window.location.href='../../Lot1/Index.html';
 }
 
 function getVehicule() {
