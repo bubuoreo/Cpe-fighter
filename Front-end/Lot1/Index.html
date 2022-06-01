@@ -43,10 +43,6 @@
         var B_Plastics = L.layerGroup().addTo(map);
         var D_Metals = L.layerGroup().addTo(map);
         var E_Electrics = L.layerGroup().addTo(map);
-        var Pizzeria=L.layerGroup().addTo(map);
-		var SportIcon = L.icon({iconUrl: 'fire-B_G.svg',iconSize: [100, 100] });
-		
-		var PizzaIcon = L.icon({iconUrl: 'v.svg',iconSize: [60, 60] });
 		
 		fetch("http://vps.cpe-sn.fr:8081/fire")
         .then(response => response.json())
@@ -56,20 +52,6 @@
 				var type = response[i].type
 				console.log(typeof type)
 				console.log(typeof B_Gasoline)
-				var intensity = response[i].intensity
-				var range = response[i].range
-				var lon = response[i].lon
-				var lat = response[i].lat
-				L.marker([lat,lon],{icon: fireIcon }).addTo(fire).bindPopup("<h3>"+"id:"+id+"</h3>"+"type:"+"</br>"+type+"</br>"+"intensity:"+intensity+"</br>"+"range:"+range);
-			}
-		})
-
-		fetch("http://vps.cpe-sn.fr:8081/facility")
-        .then(response => response.json())
-        .then(function(response) {
-			for (let i = 0; i < response.length; i++) {
-				var id =response[i].id
-				var type = response[i].type
 				var intensity = response[i].intensity
 				var range = response[i].range
 				var lon = response[i].lon
