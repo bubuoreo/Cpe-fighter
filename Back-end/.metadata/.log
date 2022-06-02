@@ -202,3 +202,9 @@ java.lang.IllegalStateException: File seems not to be a 'desktop' file
 
 !ENTRY org.eclipse.m2e.logback.appender 2 0 2022-06-02 12:02:51.835
 !MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-06-02 12:06:40.412
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-06-02 12:06:40.424
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
