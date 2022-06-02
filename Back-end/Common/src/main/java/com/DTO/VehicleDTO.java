@@ -7,7 +7,7 @@ public class VehicleDTO {
 	public static final int CREW_MEMBER_START_VALUE=-1;
 	private Integer id;
 	private double lon;
-	private double lat;
+	private double lat; 
 	private VehicleType type;
 	private LiquidType liquidType; // type of liquid effective to type of fire
 	private float liquidQuantity; // total quantity of liquid
