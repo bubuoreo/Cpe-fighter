@@ -47,7 +47,7 @@
 		var D_Metals = L.layerGroup().addTo(map);
 		var E_Electrics = L.layerGroup().addTo(map);
 		//var table = new Map('B_Gasoline',B_Gasoline,'C_Flammable_Gases',C_Flammable_Gases, 'A',A,'B_Alcohol',B_Alcohol,'B_Plastics',B_Plastics,'D_Metals',D_Metals,'E_Electrics',E_Electrics);
-		const fireType = new Map([
+		const fireTypeMap = new Map([
 			['B_Gasoline', B_Gasoline],
 			['C_Flammable_Gases', C_Flammable_Gases],
 			["age", 30],
@@ -65,13 +65,13 @@
 		var Turnable_ladder_truck = L.layerGroup().addTo(map);
 		var Truck = L.layerGroup().addTo(map);
 
-		const vehicleType = new Map([
-			['Car', Car],
-			['Fire_engine', Fire_engine],
-			['Pumper_truck', Pumper_truck],
-			["Water_tender", Water_tender],
-			['Turnable_ladder_truck', Turnable_ladder_truck],
-			['Truck', Truck]
+		const vehicleTypeMap = new Map([
+			['CAR', Car],
+			['FIRE_ENGINE', Fire_engine],
+			['PUMPER_TRUCK', Pumper_truck],
+			["WATER_TENDER", Water_tender],
+			['TURNTABLE_LADDER_TRUCK', Turnable_ladder_truck],
+			['TRUCK', Truck]
 		]);
 
 		var ALL = L.layerGroup().addTo(map);
@@ -80,7 +80,7 @@
 		var CARBON_DIOXIDE = L.layerGroup().addTo(map);
 		var POWDER = L.layerGroup().addTo(map);
 
-		const liquidType = new Map([
+		const liquidTypeMap = new Map([
 			['ALL', ALL],
 			['WATER', WATER],
 			['WATER_WITH_ADDITIVES', WATER_WITH_ADDITIVES],
@@ -117,7 +117,7 @@
 					var peopleIdSet = response[i].peopleIdSet
 					var lon = response[i].lon
 					var lat = response[i].lat
-					L.marker([lat, lon], { icon: facilityIcon }).addTo(liquidType.get(response[i].type)).bindPopup("<h3>" + name + "</h3>" + "maxVehicleSpace:" + space + "</br>peopleCapacity" + capacity + "</br>vehicleIdSet:" + vehicleIdSet + "</br>peopleIdSet:" + peopleIdSet + "</br>TeamUuid:********");
+					L.marker([lat, lon], { icon: facilityIcon }).addTo(facility).bindPopup("<h3>" + name + "</h3>" + "maxVehicleSpace:" + space + "</br>peopleCapacity" + capacity + "</br>vehicleIdSet:" + vehicleIdSet + "</br>peopleIdSet:" + peopleIdSet + "</br>TeamUuid:********");
 				}
 			})
 		fetch("http://vps.cpe-sn.fr:8081/vehicle")
@@ -132,7 +132,7 @@
 					var liquidType = response[i].liquidType
 					var lon = response[i].lon
 					var lat = response[i].lat
-					L.marker([lat, lon], { icon: vehicleIcon }).addTo(vehicleType.get(response[i].type)).bindPopup("<h3>" + type + " " + id + "</h3>" + "crewMember:" + crew + "</br>fuel" + fuel + "</br>liquidQuantity:" + liquidQuantity + "</br>liquidType:" + liquidType);
+					L.marker([lat, lon], { icon: vehicleIcon }).addTo(vehicleTypeMap.get(type)).addTo(liquidTypeMap.get(liquidType)).bindPopup("<h3>" + type + " " + id + "</h3>" + "crewMember:" + crew + "</br>fuel" + fuel + "</br>liquidQuantity:" + liquidQuantity + "</br>liquidType:" + liquidType);
 				}
 			})
 
@@ -305,28 +305,29 @@
 				}
 			}
 		}
-		// var all = document.querySelector('input[value="all"]');
-		// var water = document.querySelector('input[value="water"]')
-		// var water_with_additives = document.querySelector('input[value="water_with_additives"]')
-		// var carbon_dioxide = document.querySelector('input[value="carbon_dioxide"]');
-		// var powder = document.querySelector('input[value="powder"]');
 
-		// var fireTypeArray = [all, water, water_with_additives, carbon_dioxide, powder];
-		// var associatedFireTypeArray = [B_Gasoline, C_Flammable_Gases, A, B_Alcohol, B_Plastics, D_Metals, E_Electrics];
-		// for (let index = 0; index < fireTypeArray.length; index++) {
-		// 	const element = fireTypeArray[index];
-		// 	const associatedElement = associatedFireTypeArray[index];
-		// 	console.log(element);
-		// 	element.onchange = function () {
-		// 		console.log("changement");
-		// 		if (element.checked) {
-		// 			map.addLayer(associatedElement);
-		// 		}
-		// 		else {
-		// 			map.removeLayer(associatedElement);
-		// 		}
-		// 	}
-		// }
+		var all = document.querySelector('input[value="all"]');
+		var water = document.querySelector('input[value="water"]')
+		var water_with_additives = document.querySelector('input[value="water_with_additives"]')
+		var carbon_dioxide = document.querySelector('input[value="carbon_dioxide"]');
+		var powder = document.querySelector('input[value="powder"]');
+
+		var liquidTypeArray = [all, water, water_with_additives, carbon_dioxide, powder];
+		var associatedLiquidTypeArray = [ALL, WATER, WATER_WITH_ADDITIVES, CARBON_DIOXIDE, POWDER];
+		for (let index = 0; index < liquidTypeArray.length; index++) {
+			const element = liquidTypeArray[index];
+			const associatedElement = associatedLiquidTypeArray[index];
+			console.log(element);
+			element.onchange = function () {
+				console.log("changement");
+				if (element.checked) {
+					map.addLayer(associatedElement);
+				}
+				else {
+					map.removeLayer(associatedElement);
+				}
+			}
+		}
 
 
 	</script>
