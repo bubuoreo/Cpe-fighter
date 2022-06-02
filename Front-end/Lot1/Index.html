@@ -71,9 +71,21 @@
 			['TRUCK',truck]
 			]);
 
+		var all = L.layerGroup().addTo(map);
+		var water = L.layerGroup().addTo(map);
+		var water_with_additives = L.layerGroup().addTo(map);
+		var carbon_dioxide = L.layerGroup().addTo(map);
+		var powder = L.layerGroup().addTo(map);
 		
+		const liquidType = new Map([
+			['ALL', all],
+			['WATER',water],
+			['WATER_WITH_ADDITIVES',water_with_additives],
+			["CARBON_DIOXIDE",carbon_dioxide],
+			['POWDER',powder]
+			]);
 
-
+		
 
 		fetch("http://vps.cpe-sn.fr:8081/fire")
         .then(response => response.json())
@@ -123,87 +135,103 @@
 
 		
 	</script>
-	<form name="fireType" id="fireTypeForm" >
-  		<fieldset name="fireType">
+
+	<form name="fireFilter" id="fireFilter" >
+  		<fieldset name="fireTypeFilter">
   			<legend>Types de feu</legend>
-    			<div>
-      				<input type="checkbox" id="b_gasoline" name="interest" value="b_gasoline" checked>
-      				<label for="b_gasoline">B_Gasoline</label>
-    			</div>
-    			<div>
-      				<input type="checkbox" id="c_flammable_gases" name="interest" value="c_flammable_gases" checked>
-      				<label for="sport">C_Flammable_Gases</label>
-    			</div>
 				<div>
-					<input type="checkbox" id="A" name="interest" value="a" checked>
-					<label for="sport">A</label>
-			  </div>
-			  <div>
-				<input type="checkbox" id="B_Alcohol" name="interest" value="b_alcohol" checked>
-				<label for="sport">B_Alcohol</label>
-		  	</div>
-		  	<div>
-				<input type="checkbox" id="B_Plastics" name="interest" value="b_plastics" checked>
-				<label for="sport">B_Plastics</label>
-	  		</div>
-			<div>
-				<input type="checkbox" id="D_Metals" name="interest" value="d_metals" checked>
-				<label for="sport">D_Metals</label>
-			</div>
-			<div>
-				<input type="checkbox" id="E_Electrics" name="interest" value="e_electrics" checked>
-				<label for="sport">E_Electrics</label>
-			</div>
-			<div>
+					<input type="checkbox" id="A" value="a" checked>
+					<label>A</label>
+		  		</div>
+    			<div>
+      				<input type="checkbox" id="b_gasoline" value="b_gasoline" checked>
+      				<label>B_Gasoline</label>
+    			</div>
+			  	<div>
+					<input type="checkbox" id="B_Alcohol" value="b_alcohol" checked>
+					<label>B_Alcohol</label>
+		  		</div>
+				<div>
+					<input type="checkbox" id="B_Plastics" value="b_plastics" checked>
+					<label>B_Plastics</label>
+				</div>
+			  	<div>
+					<input type="checkbox" id="c_flammable_gases" value="c_flammable_gases" checked>
+					<label>C_Flammable_Gases</label>
+		  		</div>
+				<div>
+					<input type="checkbox" id="D_Metals" value="d_metals" checked>
+					<label>D_Metals</label>
+				</div>
+				<div>
+					<input type="checkbox" id="E_Electrics" value="e_electrics" checked>
+					<label>E_Electrics</label>
+				</div>
+				<div>
 					<input type="range" min="0" max="50" class="slider" value="25" name="range" id="range">range
 					<p>Value: <span id="demo"></span></p>
-
-			</div>
-			<div>
-				<input type="range"  min="0" max="50" name="intensity" id="intensity">intensity
-				<p>Value: <span id="demo1"></span></p>
-
-		</div>
-		</fieldset>
-	</form>
-	<form name="vehicleType" id="vehicleTypeForm">
-  		<fieldset name="vehicleType">
-  			<legend>Types de véhicule</legend>
-    			<div>
-      				<input type="checkbox" id="b_gasoline" name="interest" value="b_gasoline" checked>
-      				<label for="b_gasoline">CAR</label>
-    			</div>
-    			<div>
-      				<input type="checkbox" id="c_flammable_gases" name="interest" value="c_flammable_gases" checked>
-      				<label for="sport">FIRE_ENGINE</label>
-    			</div>
+				</div>
 				<div>
-					<input type="checkbox" id="A" name="interest" value="a" checked>
-					<label for="sport">PUMPER_TRUCK</label>
-			  </div>
-			  <div>
-				<input type="checkbox" id="B_Alcohol" name="interest" value="b_alcohol" checked>
-				<label for="sport">WATER_TENDER</label>
-		  	</div>
-		  	<div>
-				<input type="checkbox" id="B_Plastics" name="interest" value="b_plastics" checked>
-				<label for="sport">TURNTABLE_LADDER_TRUCK</label>
-	  		</div>
-			<div>
-				<input type="checkbox" id="D_Metals" name="interest" value="d_metals" checked>
-				<label for="sport">TRUCK</label>
-			</div>
-		</div>
+					<input type="range"  min="0" max="50" name="intensity" id="intensity">intensity
+					<p>Value: <span id="demo1"></span></p>
+				</div>
 		</fieldset>
 	</form>
-	<script>
-	
 
+	<form name="vehicleFilter" id="vehicleFilter" >
+		<fieldset name="vehicleTypeFilter">
+			<legend>Types de vehicule</legend>
+			  <div>
+				  <input type="checkbox" id="car" value="car" checked>
+				  <label>CAR</label>
+				</div>
+			  <div>
+					<input type="checkbox" id="fire_engine" value="fire_engine" checked>
+					<label>FIRE_ENGINE</label>
+			  </div>
+				<div>
+				  <input type="checkbox" id="pumper_truck" value="pumper_truck" checked>
+				  <label>PUMPER_TRUCK</label>
+				</div>
+			  <div>
+				  <input type="checkbox" id="water_tender" value="water_tender" checked>
+				  <label>WATER_TENDER</label>
+			  </div>
+				<div>
+				  <input type="checkbox" id="turntable_ladder_truck" value="c_flammable_gases" checked>
+				  <label>TURNTABLE_LADDER_TRUCK</label>
+				</div>
+			  <div>
+				  <input type="checkbox" id="truck" value="truck" checked>
+				  <label>TRUCK</label>
+			  </div>
+	  </fieldset>
 
-	
+	  <fieldset name="vehicleLiquidFilter">
+		<legend>Types de liquide</legend>
+		  <div>
+			  <input type="checkbox" id="all" value="all" checked>
+			  <label>ALL</label>
+			</div>
+		  <div>
+				<input type="checkbox" id="water" value="water" checked>
+				<label>WATER</label>
+		  </div>
+			<div>
+			  <input type="checkbox" id="water_with_additives" value="water_with_additives" checked>
+			  <label>WATER_WITH_ADDITIVES</label>
+			</div>
+		  <div>
+			  <input type="checkbox" id="carbon_dioxide" value="carbon_dioxide" checked>
+			  <label>CARBON_DIOXIDE</label>
+		  </div>
+			<div>
+			  <input type="checkbox" id="powder" value="powder" checked>
+			  <label>POWDER</label>
+			</div>
+  </fieldset>
+  </form>
 
-
-	</script>
 
 	<script>
 
