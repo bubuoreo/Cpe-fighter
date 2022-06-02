@@ -1,3 +1,0 @@
-INDEX VERSION 1.131+/home/alex/Documents/4ETI/S8/Cpe-fighter/Back-end/.metadata/.plugins/org.eclipse.jdt.core
-601610462.index
-1865797976.index
