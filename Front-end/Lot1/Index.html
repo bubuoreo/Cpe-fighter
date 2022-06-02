@@ -234,167 +234,23 @@
 	var range = document.querySelector('input[value="range"]');
 	var intensity = document.querySelector('input[value="intensity"]');
 
-	b_gasoline.onchange = function() {
-
-		if(b_gasoline.checked) {
-						map.addLayer(B_Gasoline);
-	    
-	  				  } 
-	 	else			  {
-						map.removeLayer(B_Gasoline);
-	    
-	  				  }
-	};
-	c_flammable_gases.onchange = function() {
-
-	if(c_flammable_gases.checked) {
-					map.addLayer(C_Flammable_Gases);
-
-					} 
-	else			  {
-					map.removeLayer(C_Flammable_Gases);
-
-					}
-	};
-	a.onchange = function() {
-
-	if(a.checked) {
-					map.addLayer(A);
-
-					} 
-	else			  {
-					map.removeLayer(A);
-
-					}
-	};
-	b_alcohol.onchange = function() {
-
-	if(b_alcohol.checked) {
-					map.addLayer(B_Alcohol);
-
-					} 
-	else			  {
-					map.removeLayer(B_Alcohol);
-
-					}
-	};
-	b_plastics.onchange = function() {
-
-	if(b_plastics.checked) {
-					map.addLayer(B_Plastics);
-
-					} 
-	else			  {
-					map.removeLayer(B_Plastics);
-
-					}
-	};
-	d_metals.onchange = function() {
-
-	if(d_metals.checked) {
-					map.addLayer(D_Metals);
-
-					} 
-	else			  {
-					map.removeLayer(D_Metals);
-
-					}
-	};
-	e_electrics.onchange = function() {
-
-	if(e_electrics.checked) {
-					map.addLayer(E_Electrics);
-
-					} 
-	else			  {
-					map.removeLayer(E_Electrics);
-					}
-	};
-
-	var car = document.querySelector('input[value="c_flammable_gases"]')
-	var fire_engine = document.querySelector('input[value="a"]')
-	var pumper_truck = document.querySelector('input[value="b_alcohol"]');
-	var water_tender = document.querySelector('input[value="b_plastics"]');
-	var turnable_ladder_truck = document.querySelector('input[value="d_metals"]');
-	var truck = document.querySelector('input[value="e_electrics"]');
-
-	b_gasoline.onchange = function() {
-
-		if(b_gasoline.checked) {
-						map.addLayer(B_Gasoline);
-	    
-	  				  } 
-	 	else			  {
-						map.removeLayer(B_Gasoline);
-	    
-	  				  }
-	};
-	c_flammable_gases.onchange = function() {
-
-	if(c_flammable_gases.checked) {
-					map.addLayer(C_Flammable_Gases);
-
-					} 
-	else			  {
-					map.removeLayer(C_Flammable_Gases);
-
-					}
-	};
-	a.onchange = function() {
-
-	if(a.checked) {
-					map.addLayer(A);
-
-					} 
-	else			  {
-					map.removeLayer(A);
-
-					}
-	};
-	b_alcohol.onchange = function() {
-
-	if(b_alcohol.checked) {
-					map.addLayer(B_Alcohol);
-
-					} 
-	else			  {
-					map.removeLayer(B_Alcohol);
-
-					}
-	};
-	b_plastics.onchange = function() {
-
-	if(b_plastics.checked) {
-					map.addLayer(B_Plastics);
-
-					} 
-	else			  {
-					map.removeLayer(B_Plastics);
-
-					}
-	};
-	d_metals.onchange = function() {
-
-	if(d_metals.checked) {
-					map.addLayer(D_Metals);
-
-					} 
-	else			  {
-					map.removeLayer(D_Metals);
-
-					}
-	};
-	e_electrics.onchange = function() {
-
-	if(e_electrics.checked) {
-					map.addLayer(E_Electrics);
-
-					} 
-	else			  {
-					map.removeLayer(E_Electrics);
-
-					}
-	};
+	var fireTypeArray = [b_gasoline,c_flammable_gases,a,b_alcohol,b_plastics,d_metals,e_electrics];
+	var associatedFireTypeArray = [B_Gasoline,C_Flammable_Gases,A,B_Alcohol,B_Plastics,D_Metals,E_Electrics];
+	for (let index = 0; index < fireTypeArray.length; index++) {
+		const element = fireTypeArray[index];
+		const associatedElement = associatedFireTypeArray[index];
+		console.log(element);
+		element.onchange = function() {
+			console.log("changement");
+			if(element.checked) {
+				map.addLayer(associatedElement);
+			} 
+			else {
+				map.removeLayer(associatedElement);
+			}
+		}
+	}
+	
 	
 	</script>
 	<p id="xy">0,0<p>
