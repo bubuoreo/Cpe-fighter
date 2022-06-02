@@ -102,7 +102,7 @@
 					var range = response[i].range
 					var lon = response[i].lon
 					var lat = response[i].lat
-					L.marker([lat, lon], { icon: fireIcon }).addTo(fireType.get(response[i].type)).bindPopup("<h3>" + "ID:" + id + "</h3>" + "Type:" + "</br>" + type + "</br>" + "Intensity:" + intensity + "</br>" + "Range:" + range);
+					L.marker([lat, lon], { icon: fireIcon }).addTo(fireTypeMap.get(response[i].type)).bindPopup("<h3>" + "ID:" + id + "</h3>" + "Type:" + "</br>" + type + "</br>" + "Intensity:" + intensity + "</br>" + "Range:" + range);
 				}
 			})
 
