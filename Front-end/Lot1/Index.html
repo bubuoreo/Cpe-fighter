@@ -47,7 +47,7 @@
 		var D_Metals = L.layerGroup().addTo(map);
 		var E_Electrics = L.layerGroup().addTo(map);
 		//var table = new Map('B_Gasoline',B_Gasoline,'C_Flammable_Gases',C_Flammable_Gases, 'A',A,'B_Alcohol',B_Alcohol,'B_Plastics',B_Plastics,'D_Metals',D_Metals,'E_Electrics',E_Electrics);
-		const person = new Map([
+		const fireType = new Map([
 			['B_Gasoline', B_Gasoline],
 			['C_Flammable_Gases', C_Flammable_Gases],
 			["age", 30],
@@ -81,11 +81,11 @@
 		var POWDER = L.layerGroup().addTo(map);
 
 		const liquidType = new Map([
-			['ALL', all],
-			['WATER', water],
-			['WATER_WITH_ADDITIVES', water_with_additives],
-			["CARBON_DIOXIDE", carbon_dioxide],
-			['POWDER', powder]
+			['ALL', ALL],
+			['WATER', WATER],
+			['WATER_WITH_ADDITIVES', WATER_WITH_ADDITIVES],
+			["CARBON_DIOXIDE", CARBON_DIOXIDE],
+			['POWDER', POWDER]
 		]);
 
 
@@ -102,7 +102,7 @@
 					var range = response[i].range
 					var lon = response[i].lon
 					var lat = response[i].lat
-					L.marker([lat, lon], { icon: fireIcon }).addTo(person.get(response[i].type)).bindPopup("<h3>" + "id:" + id + "</h3>" + "type:" + "</br>" + type + "</br>" + "intensity:" + intensity + "</br>" + "range:" + range);
+					L.marker([lat, lon], { icon: fireIcon }).addTo(fireType.get(response[i].type)).bindPopup("<h3>" + "id:" + id + "</h3>" + "type:" + "</br>" + type + "</br>" + "intensity:" + intensity + "</br>" + "range:" + range);
 				}
 			})
 
@@ -117,7 +117,7 @@
 					var peopleIdSet = response[i].peopleIdSet
 					var lon = response[i].lon
 					var lat = response[i].lat
-					L.marker([lat, lon], { icon: facilityIcon }).addTo(facility).bindPopup("<h3>" + name + "</h3>" + "maxVehicleSpace:" + space + "</br>peopleCapacity" + capacity + "</br>vehicleIdSet:" + vehicleIdSet + "</br>peopleIdSet:" + peopleIdSet + "</br>TeamUuid:********");
+					L.marker([lat, lon], { icon: facilityIcon }).addTo(liquidType.get(response[i].type)).bindPopup("<h3>" + name + "</h3>" + "maxVehicleSpace:" + space + "</br>peopleCapacity" + capacity + "</br>vehicleIdSet:" + vehicleIdSet + "</br>peopleIdSet:" + peopleIdSet + "</br>TeamUuid:********");
 				}
 			})
 		fetch("http://vps.cpe-sn.fr:8081/vehicle")
@@ -132,7 +132,7 @@
 					var liquidType = response[i].liquidType
 					var lon = response[i].lon
 					var lat = response[i].lat
-					L.marker([lat, lon], { icon: vehicleIcon }).addTo(vehicle).bindPopup("<h3>" + type + " " + id + "</h3>" + "crewMember:" + crew + "</br>fuel" + fuel + "</br>liquidQuantity:" + liquidQuantity + "</br>liquidType:" + liquidType);
+					L.marker([lat, lon], { icon: vehicleIcon }).addTo(vehicleType.get(response[i].type)).bindPopup("<h3>" + type + " " + id + "</h3>" + "crewMember:" + crew + "</br>fuel" + fuel + "</br>liquidQuantity:" + liquidQuantity + "</br>liquidType:" + liquidType);
 				}
 			})
 
@@ -291,7 +291,7 @@
 
 		var vehicleTypeArray = [car, fire_engine, pumper_truck, water_tender, turnable_ladder_truck, truck];
 		var associatedVehicleTypeArray = [Car, Fire_engine, Pumper_truck, Water_tender, Turnable_ladder_truck, Truck];
-		for (let index = 0; index < fireTypeArray.length; index++) {
+		for (let index = 0; index < vehicleTypeArray.length; index++) {
 			const element = vehicleTypeArray[index];
 			const associatedElement = associatedVehicleTypeArray[index];
 			console.log(element);
@@ -305,28 +305,28 @@
 				}
 			}
 		}
-		var all = document.querySelector('input[value="all"]');
-		var water = document.querySelector('input[value="water"]')
-		var water_with_additives = document.querySelector('input[value="water_with_additives"]')
-		var carbon_dioxide = document.querySelector('input[value="carbon_dioxide"]');
-		var powder = document.querySelector('input[value="powder"]');
+		// var all = document.querySelector('input[value="all"]');
+		// var water = document.querySelector('input[value="water"]')
+		// var water_with_additives = document.querySelector('input[value="water_with_additives"]')
+		// var carbon_dioxide = document.querySelector('input[value="carbon_dioxide"]');
+		// var powder = document.querySelector('input[value="powder"]');
 
-		var fireTypeArray = [all, water, water_with_additives, carbon_dioxide, powder];
-		var associatedFireTypeArray = [B_Gasoline, C_Flammable_Gases, A, B_Alcohol, B_Plastics, D_Metals, E_Electrics];
-		for (let index = 0; index < fireTypeArray.length; index++) {
-			const element = fireTypeArray[index];
-			const associatedElement = associatedFireTypeArray[index];
-			console.log(element);
-			element.onchange = function () {
-				console.log("changement");
-				if (element.checked) {
-					map.addLayer(associatedElement);
-				}
-				else {
-					map.removeLayer(associatedElement);
-				}
-			}
-		}
+		// var fireTypeArray = [all, water, water_with_additives, carbon_dioxide, powder];
+		// var associatedFireTypeArray = [B_Gasoline, C_Flammable_Gases, A, B_Alcohol, B_Plastics, D_Metals, E_Electrics];
+		// for (let index = 0; index < fireTypeArray.length; index++) {
+		// 	const element = fireTypeArray[index];
+		// 	const associatedElement = associatedFireTypeArray[index];
+		// 	console.log(element);
+		// 	element.onchange = function () {
+		// 		console.log("changement");
+		// 		if (element.checked) {
+		// 			map.addLayer(associatedElement);
+		// 		}
+		// 		else {
+		// 			map.removeLayer(associatedElement);
+		// 		}
+		// 	}
+		// }
 
 
 	</script>
