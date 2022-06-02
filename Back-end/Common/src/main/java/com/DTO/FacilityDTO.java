@@ -112,4 +112,3 @@ public class FacilityDTO {
 			this.teamUuid = teamUuid;
 		}
 }
-
