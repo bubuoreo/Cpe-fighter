@@ -1,0 +1,10 @@
+2022-06-02 11:46:53,998 [Worker-4: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2022-06-02 11:50:24,140 [Worker-11: Creating project "cpe-fighter.vehicle"] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.vehicle:cpe-fighter.vehicle:0.0.1-SNAPSHOT @ /home/alex/Documents/4ETI/S8/Cpe-fighter/Back-end/cpe-fighter.vehicle/pom.xml.
+2022-06-02 11:50:25,538 [Worker-11: Creating project "cpe-fighter.vehicle"] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /cpe-fighter.vehicle/src/main/java
+2022-06-02 11:50:25,540 [Worker-11: Creating project "cpe-fighter.vehicle"] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /cpe-fighter.vehicle/src/main/resources
+2022-06-02 11:50:25,541 [Worker-11: Creating project "cpe-fighter.vehicle"] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /cpe-fighter.vehicle/src/test/java
+2022-06-02 11:50:25,541 [Worker-11: Creating project "cpe-fighter.vehicle"] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /cpe-fighter.vehicle/src/test/resources
+2022-06-02 11:50:30,798 [Worker-13: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-06-02 11:50:30,843 [Worker-13: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2022-06-02 11:50:30,850 [Worker-13: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2022-06-02 11:50:30,851 [Worker-13: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
