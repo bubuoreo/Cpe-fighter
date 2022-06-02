@@ -16,8 +16,8 @@
 
 <body>
 	<span>
-		<button id="buttonCreate" type="button" onclick="window.location.href='../Lot2/HTML/formulaire.html'">Créer</button>
-		<button id="buttonDelete" type="button" onclick="window.location.href='../Lot2/HTML/formulaire.html'">Supprimer</button>
+		<button id="buttonCreate" type="button" onclick="window.location.href='../Lot2/HTML/formulaireCreation.html'">Créer</button>
+		<button id="buttonDelete" type="button" onclick="window.location.href='../Lot2/HTML/formulaireSupression.html'">Supprimer</button>
 		<button type="button" onclick="modifyVehicule()">Modifier</button>
 	</span>
 	<div id="map"></div>
@@ -42,7 +42,7 @@
         var B_Alcohol = L.layerGroup().addTo(map);
         var B_Plastics = L.layerGroup().addTo(map);
         var D_Metals = L.layerGroup().addTo(map);
-        var E_Electrics = L.layerGroup().addTo(map);
+		var E_Electrics = L.layerGroup().addTo(map);
 		//var table = new Map('B_Gasoline',B_Gasoline,'C_Flammable_Gases',C_Flammable_Gases, 'A',A,'B_Alcohol',B_Alcohol,'B_Plastics',B_Plastics,'D_Metals',D_Metals,'E_Electrics',E_Electrics);
 		const person = new Map([
 			['B_Gasoline', B_Gasoline],
@@ -53,8 +53,23 @@
 			["B_Plastics", B_Plastics],
 			['D_Metals', D_Metals],
 			['E_Electrics', E_Electrics]
+		]);
+		
+		var car = L.layerGroup().addTo(map);
+		var fire_engine = L.layerGroup().addTo(map);
+		var pumper_truck = L.layerGroup().addTo(map);
+		var water_tender = L.layerGroup().addTo(map);
+		var turnable_ladder_truck = L.layerGroup().addTo(map);
+		var truck = L.layerGroup().addTo(map);
+		
+		const vehicleType = new Map([
+			['CAR', car],
+			['FIRE_ENGINE',fire_engine],
+			['PUMPER_TRUCK',pumper_truck],
+			["WATER_TENDER",water_tender],
+			['TURNTABLE_LADDER_TRUCK',turnable_ladder_truck],
+			['TRUCK',truck]
 			]);
-
 
 		
 
@@ -108,9 +123,9 @@
 
 		
 	</script>
-	<form name="test" id="form" >
-  		<fieldset name="test">
-  			<legend>Couches</legend>
+	<form name="fireType" id="fireTypeForm" >
+  		<fieldset name="fireType">
+  			<legend>Types de feu</legend>
     			<div>
       				<input type="checkbox" id="b_gasoline" name="interest" value="b_gasoline" checked>
       				<label for="b_gasoline">B_Gasoline</label>
@@ -149,8 +164,36 @@
 				<p>Value: <span id="demo1"></span></p>
 
 		</div>
-		
-
+		</fieldset>
+	</form>
+	<form name="vehicleType" id="vehicleTypeForm">
+  		<fieldset name="vehicleType">
+  			<legend>Types de véhicule</legend>
+    			<div>
+      				<input type="checkbox" id="b_gasoline" name="interest" value="b_gasoline" checked>
+      				<label for="b_gasoline">CAR</label>
+    			</div>
+    			<div>
+      				<input type="checkbox" id="c_flammable_gases" name="interest" value="c_flammable_gases" checked>
+      				<label for="sport">FIRE_ENGINE</label>
+    			</div>
+				<div>
+					<input type="checkbox" id="A" name="interest" value="a" checked>
+					<label for="sport">PUMPER_TRUCK</label>
+			  </div>
+			  <div>
+				<input type="checkbox" id="B_Alcohol" name="interest" value="b_alcohol" checked>
+				<label for="sport">WATER_TENDER</label>
+		  	</div>
+		  	<div>
+				<input type="checkbox" id="B_Plastics" name="interest" value="b_plastics" checked>
+				<label for="sport">TURNTABLE_LADDER_TRUCK</label>
+	  		</div>
+			<div>
+				<input type="checkbox" id="D_Metals" name="interest" value="d_metals" checked>
+				<label for="sport">TRUCK</label>
+			</div>
+		</div>
 		</fieldset>
 	</form>
 	<script>
@@ -164,8 +207,8 @@
 
 	<script>
 
-var slider = document.getElementById("range");
-var output = document.getElementById("demo");
+		var slider = document.getElementById("range");
+		var output = document.getElementById("demo");
 		output.innerHTML = slider.value; // Display the default slider value
 
 		// Update the current slider value (each time you drag the slider handle)
@@ -265,10 +308,93 @@ var output = document.getElementById("demo");
 					} 
 	else			  {
 					map.removeLayer(E_Electrics);
-
 					}
 	};
 
+	var car = document.querySelector('input[value="c_flammable_gases"]')
+	var fire_engine = document.querySelector('input[value="a"]')
+	var pumper_truck = document.querySelector('input[value="b_alcohol"]');
+	var water_tender = document.querySelector('input[value="b_plastics"]');
+	var turnable_ladder_truck = document.querySelector('input[value="d_metals"]');
+	var truck = document.querySelector('input[value="e_electrics"]');
+
+	b_gasoline.onchange = function() {
+
+		if(b_gasoline.checked) {
+						map.addLayer(B_Gasoline);
+	    
+	  				  } 
+	 	else			  {
+						map.removeLayer(B_Gasoline);
+	    
+	  				  }
+	};
+	c_flammable_gases.onchange = function() {
+
+	if(c_flammable_gases.checked) {
+					map.addLayer(C_Flammable_Gases);
+
+					} 
+	else			  {
+					map.removeLayer(C_Flammable_Gases);
+
+					}
+	};
+	a.onchange = function() {
+
+	if(a.checked) {
+					map.addLayer(A);
+
+					} 
+	else			  {
+					map.removeLayer(A);
+
+					}
+	};
+	b_alcohol.onchange = function() {
+
+	if(b_alcohol.checked) {
+					map.addLayer(B_Alcohol);
+
+					} 
+	else			  {
+					map.removeLayer(B_Alcohol);
+
+					}
+	};
+	b_plastics.onchange = function() {
+
+	if(b_plastics.checked) {
+					map.addLayer(B_Plastics);
+
+					} 
+	else			  {
+					map.removeLayer(B_Plastics);
+
+					}
+	};
+	d_metals.onchange = function() {
+
+	if(d_metals.checked) {
+					map.addLayer(D_Metals);
+
+					} 
+	else			  {
+					map.removeLayer(D_Metals);
+
+					}
+	};
+	e_electrics.onchange = function() {
+
+	if(e_electrics.checked) {
+					map.addLayer(E_Electrics);
+
+					} 
+	else			  {
+					map.removeLayer(E_Electrics);
+
+					}
+	};
 	
 	</script>
 	<p id="xy">0,0<p>
