@@ -74,11 +74,11 @@
 			['Truck', Truck]
 		]);
 
-		var all = L.layerGroup().addTo(map);
-		var water = L.layerGroup().addTo(map);
-		var water_with_additives = L.layerGroup().addTo(map);
-		var carbon_dioxide = L.layerGroup().addTo(map);
-		var powder = L.layerGroup().addTo(map);
+		var ALL = L.layerGroup().addTo(map);
+		var WATER = L.layerGroup().addTo(map);
+		var WATER_WITH_ADDITIVES = L.layerGroup().addTo(map);
+		var CARBON_DIOXIDE = L.layerGroup().addTo(map);
+		var POWDER = L.layerGroup().addTo(map);
 
 		const liquidType = new Map([
 			['ALL', all],
@@ -147,7 +147,7 @@
 				<label>A</label>
 			</div>
 			<div>
-				<input type="checkbox" id="b_gasoline" value="b_gasoline" checked>
+				<input type="checkbox" id="B_gasoline" value="b_gasoline" checked>
 				<label>B_Gasoline</label>
 			</div>
 			<div>
@@ -159,7 +159,7 @@
 				<label>B_Plastics</label>
 			</div>
 			<div>
-				<input type="checkbox" id="c_flammable_gases" value="c_flammable_gases" checked>
+				<input type="checkbox" id="C_flammable_gases" value="c_flammable_gases" checked>
 				<label>C_Flammable_Gases</label>
 			</div>
 			<div>
@@ -305,17 +305,13 @@
 				}
 			}
 		}
-		var b_gasoline = document.querySelector('input[value="b_gasoline"]');
-		var c_flammable_gases = document.querySelector('input[value="c_flammable_gases"]')
-		var a = document.querySelector('input[value="a"]')
-		var b_alcohol = document.querySelector('input[value="b_alcohol"]');
-		var b_plastics = document.querySelector('input[value="b_plastics"]');
-		var d_metals = document.querySelector('input[value="d_metals"]');
-		var e_electrics = document.querySelector('input[value="e_electrics"]');
-		var range = document.querySelector('input[value="range"]');
-		var intensity = document.querySelector('input[value="intensity"]');
+		var all = document.querySelector('input[value="all"]');
+		var water = document.querySelector('input[value="water"]')
+		var water_with_additives = document.querySelector('input[value="water_with_additives"]')
+		var carbon_dioxide = document.querySelector('input[value="carbon_dioxide"]');
+		var powder = document.querySelector('input[value="powder"]');
 
-		var fireTypeArray = [b_gasoline, c_flammable_gases, a, b_alcohol, b_plastics, d_metals, e_electrics];
+		var fireTypeArray = [all, water, water_with_additives, carbon_dioxide, powder];
 		var associatedFireTypeArray = [B_Gasoline, C_Flammable_Gases, A, B_Alcohol, B_Plastics, D_Metals, E_Electrics];
 		for (let index = 0; index < fireTypeArray.length; index++) {
 			const element = fireTypeArray[index];
