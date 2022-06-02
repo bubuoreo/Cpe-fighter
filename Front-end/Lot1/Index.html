@@ -58,20 +58,20 @@
 			['E_Electrics', E_Electrics]
 		]);
 
-		var car = L.layerGroup().addTo(map);
-		var fire_engine = L.layerGroup().addTo(map);
-		var pumper_truck = L.layerGroup().addTo(map);
-		var water_tender = L.layerGroup().addTo(map);
-		var turnable_ladder_truck = L.layerGroup().addTo(map);
-		var truck = L.layerGroup().addTo(map);
+		var Car = L.layerGroup().addTo(map);
+		var Fire_engine = L.layerGroup().addTo(map);
+		var Pumper_truck = L.layerGroup().addTo(map);
+		var Water_tender = L.layerGroup().addTo(map);
+		var Turnable_ladder_truck = L.layerGroup().addTo(map);
+		var Truck = L.layerGroup().addTo(map);
 
 		const vehicleType = new Map([
-			['CAR', car],
-			['FIRE_ENGINE', fire_engine],
-			['PUMPER_TRUCK', pumper_truck],
-			["WATER_TENDER", water_tender],
-			['TURNTABLE_LADDER_TRUCK', turnable_ladder_truck],
-			['TRUCK', truck]
+			['CAR', Car],
+			['FIRE_ENGINE', Fire_engine],
+			['PUMPER_TRUCK', Pumper_truck],
+			["WATER_TENDER", Water_tender],
+			['TURNTABLE_LADDER_TRUCK', Turnable_ladder_truck],
+			['TRUCK', Truck]
 		]);
 
 		var all = L.layerGroup().addTo(map);
@@ -281,21 +281,19 @@
 				}
 			}
 		}
-		var b_gasoline = document.querySelector('input[value="b_gasoline"]');
-		var c_flammable_gases = document.querySelector('input[value="c_flammable_gases"]')
-		var a = document.querySelector('input[value="a"]')
-		var b_alcohol = document.querySelector('input[value="b_alcohol"]');
-		var b_plastics = document.querySelector('input[value="b_plastics"]');
-		var d_metals = document.querySelector('input[value="d_metals"]');
-		var e_electrics = document.querySelector('input[value="e_electrics"]');
-		var range = document.querySelector('input[value="range"]');
-		var intensity = document.querySelector('input[value="intensity"]');
 
-		var fireTypeArray = [b_gasoline, c_flammable_gases, a, b_alcohol, b_plastics, d_metals, e_electrics];
-		var associatedFireTypeArray = [B_Gasoline, C_Flammable_Gases, A, B_Alcohol, B_Plastics, D_Metals, E_Electrics];
+		var car = document.querySelector('input[value="car"]');
+		var fire_engine = document.querySelector('input[value="fire_engine"]')
+		var pumper_truck = document.querySelector('input[value="pumper_truck"]')
+		var water_tender = document.querySelector('input[value="water_tender"]');
+		var turnable_ladder_truck = document.querySelector('input[value="turnable_ladder_truck"]');
+		var truck = document.querySelector('input[value="truck"]');
+
+		var vehicleTypeArray = [car, fire_engine, pumper_truck, water_tender, turnable_ladder_truck, truck];
+		var associatedVehicleTypeArray = [Car, Fire_engine, Pumper_truck, Water_tender, Turnable_ladder_truck, Truck];
 		for (let index = 0; index < fireTypeArray.length; index++) {
-			const element = fireTypeArray[index];
-			const associatedElement = associatedFireTypeArray[index];
+			const element = vehicleTypeArray[index];
+			const associatedElement = associatedVehicleTypeArray[index];
 			console.log(element);
 			element.onchange = function () {
 				console.log("changement");
