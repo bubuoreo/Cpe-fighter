@@ -102,7 +102,7 @@
 					var range = response[i].range
 					var lon = response[i].lon
 					var lat = response[i].lat
-					L.marker([lat, lon], { icon: fireIcon }).addTo(fireTypeMap.get(response[i].type)).bindPopup("<h3>" + "id:" + id + "</h3>" + "type:" + "</br>" + type + "</br>" + "intensity:" + intensity + "</br>" + "range:" + range);
+					L.marker([lat, lon], { icon: fireIcon }).addTo(fireTypeMap.get(response[i].type)).bindPopup("<h3>" + "ID:" + id + "</h3>" + "Type:" + "</br>" + type + "</br>" + "Intensity:" + intensity + "</br>" + "Range:" + range);
 				}
 			})
 
@@ -337,36 +337,9 @@
 			function onMouseMove(e) {
 				document.getElementById("xy").innerHTML = e.latlng;
 			}
-
 			map.on('mousemove', onMouseMove);
 		</script>
-
-	<form>
-		<div>
-			<input type="search" id="maRecherche" name="q">
-		</div>
-	</form>
-	<button onmouseup="myFunction()">Rechercher</button>
-	<script>
-		function myFunction() {
-			var t = [
-				[33.799602, 2.864200, "Meriem Club"],
-				[33.802579, 2.867955, "FormeInshape"],
-				[33.800778, 2.860724, "SportPro"],
-				[33.804755, 2.863398, "Hamou's Pizza"],
-				[33.797801, 2.868462, "Pizza Family"]
-			];
-			var x = document.getElementById("maRecherche").value;
-			var trouvee = 0;
-			for (var i = 0; i < t.length; i++) {
-				if (t[i][2] == x) {
-					map.setView([t[i][0], t[i][1]], 17);
-					trouvee = 1;
-				}
-			}
-			if (trouvee == 0) { alert("Untrouvable"); }
-		}
-	</script>
+	
 
 </body>
 
