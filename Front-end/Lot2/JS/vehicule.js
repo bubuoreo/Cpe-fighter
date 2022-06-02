@@ -39,10 +39,12 @@ async function createVehicule() {
 
     fetch("http://vps.cpe-sn.fr:8081/vehicle/c230e0e0-8de9-4c39-8dec-e246dc0c6334", requestOptions)
     .then(response => response.text())
+    .then(function(response){
+        console.log(response);
+    })
     .then(result => console.log(result))
     .catch(error => console.log('error', error));
     console.log("création d'un véhicule");
-    window.location.href='../../Lot1/Index.html';
 }
 
 function getVehicule() {
@@ -89,4 +91,8 @@ async function getFacility(id) {
         facilityInfo = response;
     });
     return facilityInfo;
+}
+
+function backToIndex(){
+    window.location.href='../../Lot1/Index.html';
 }
