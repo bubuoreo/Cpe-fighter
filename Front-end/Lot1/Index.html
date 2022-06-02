@@ -66,12 +66,12 @@
 		var Truck = L.layerGroup().addTo(map);
 
 		const vehicleType = new Map([
-			['CAR', Car],
-			['FIRE_ENGINE', Fire_engine],
-			['PUMPER_TRUCK', Pumper_truck],
-			["WATER_TENDER", Water_tender],
-			['TURNTABLE_LADDER_TRUCK', Turnable_ladder_truck],
-			['TRUCK', Truck]
+			['Car', Car],
+			['Fire_engine', Fire_engine],
+			['Pumper_truck', Pumper_truck],
+			["Water_tender", Water_tender],
+			['Turnable_ladder_truck', Turnable_ladder_truck],
+			['Truck', Truck]
 		]);
 
 		var all = L.layerGroup().addTo(map);
@@ -201,7 +201,7 @@
 				<label>WATER_TENDER</label>
 			</div>
 			<div>
-				<input type="checkbox" id="turntable_ladder_truck" value="c_flammable_gases" checked>
+				<input type="checkbox" id="turnable_ladder_truck" value="turnable_ladder_truck" checked>
 				<label>TURNTABLE_LADDER_TRUCK</label>
 			</div>
 			<div>
