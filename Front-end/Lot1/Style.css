@@ -1,1 +1,32 @@
-#map { height: 400px; width 100%;}
+#map {
+    z-index: 0;
+    height: 80px;
+    position: relative;
+    
+  
+  }
+#test {
+    z-index: 1;
+    position: absolute;
+    width: 150px;
+    height: 350px;
+    top: 50px;
+    right: 150px;
+    
+    
+  }
+  
+#fireFilter{
+    background: rgb(255, 255, 255);;
+
+}
+
+#vehicleFilter{
+    background: rgb(255, 255, 255);;
+
+}
+#liquide{
+    background: rgb(255, 255, 255);;
+
+}
+  

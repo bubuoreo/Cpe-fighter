@@ -23,7 +23,7 @@
 			onclick="window.location.href='../Lot2/HTML/formulaireSupression.html'">Supprimer</button>
 		<button type="button" onclick="modifyVehicule()">Modifier</button>
 	</span>
-	<div id="map" style="height: 700px;"></div>
+	<div  class="map" id="map" style="height: 700px;"></div>
 	<script>
 		var map = L.map('map').setView([45.759275, 4.831673], 11.5);
 
@@ -138,9 +138,12 @@
 
 
 	</script>
+<div class="test" id="test">
+		
+	
 
-	<form name="fireFilter" id="fireFilter">
-		<fieldset name="fireTypeFilter">
+	<form name="fireFilter" >
+		<fieldset name="fireTypeFilter" id="fireFilter">
 			<legend>Types de feu</legend>
 			<div>
 				<input type="checkbox" id="A" value="a" checked>
@@ -181,8 +184,8 @@
 		</fieldset>
 	</form>
 
-	<form name="vehicleFilter" id="vehicleFilter">
-		<fieldset name="vehicleTypeFilter">
+	<form name="vehicleFilter" >
+		<fieldset name="vehicleTypeFilter" id="vehicleFilter">
 			<legend>Types de vehicule</legend>
 			<div>
 				<input type="checkbox" id="car" value="car" checked>
@@ -210,7 +213,7 @@
 			</div>
 		</fieldset>
 
-		<fieldset name="vehicleLiquidFilter">
+		<fieldset name="vehicleLiquidFilter" id="liquide"> 	
 			<legend>Types de liquide</legend>
 			<div>
 				<input type="checkbox" id="all" value="all" checked>
@@ -234,7 +237,7 @@
 			</div>
 		</fieldset>
 	</form>
-
+</div>
 
 	<script>
 
