@@ -16,6 +16,7 @@
 </head>
 
 <body>
+	<div id="cre">
 	<span>
 		<button id="buttonCreate" type="button"
 			onclick="window.location.href='../Lot2/HTML/formulaireCreation.html'">Créer</button>
@@ -23,9 +24,10 @@
 			onclick="window.location.href='../Lot2/HTML/formulaireSupression.html'">Supprimer</button>
 		<button type="button" onclick="modifyVehicule()">Modifier</button>
 	</span>
+</div>
 	<div  class="map" id="map" style="height: 700px;"></div>
 	<script>
-		var map = L.map('map').setView([45.759275, 4.831673], 11.5);
+		var map = L.map('map').setView([45.75314, 4.87], 11.5);
 
 		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -34,9 +36,25 @@
 		var fire = L.layerGroup().addTo(map);
 		var facility = L.layerGroup().addTo(map);
 		var vehicle = L.layerGroup().addTo(map);
-		var fireIcon = L.icon({ iconUrl: 'fire-B_G.svg', iconSize: [30, 30] });
 		var vehicleIcon = L.icon({ iconUrl: './F1.png', iconSize: [30, 30] });
 		var facilityIcon = L.icon({ iconUrl: './caserne.png', iconSize: [30, 30] });
+
+		var B_Gasolinei  = L.icon({ iconUrl: 'fire-B_G.svg', iconSize: [30, 30] });
+		var C_Flammable_Gasesi = L.icon({ iconUrl: 'fire-C_F.svg', iconSize: [30, 30] });
+		var Ai = L.icon({ iconUrl: 'fire-A.svg', iconSize: [30, 30] });
+		var B_Alcoholi = L.icon({ iconUrl: 'fire-B_A.svg', iconSize: [30, 30] });
+		var B_Plasticsi = L.icon({ iconUrl: 'fire-B_P.svg', iconSize: [30, 30] });
+		var D_Metalsi = L.icon({ iconUrl: 'fire-D_M.svg', iconSize: [30, 30] });
+		var E_Electrici = L.icon({ iconUrl: 'fire-E_E.svg', iconSize: [30, 30] });
+		const fireIconMap = new Map([
+			['B_Gasoline', B_Gasolinei],
+			['C_Flammable_Gases', C_Flammable_Gasesi],
+			['A', Ai],
+			['B_Alcohol', B_Alcoholi],
+			["B_Plastics", B_Plasticsi],
+			['D_Metals', D_Metalsi],
+			['E_Electric', E_Electrici]
+		]);
 
 
 		var B_Gasoline = L.layerGroup().addTo(map);
@@ -102,7 +120,8 @@
 					var range = response[i].range
 					var lon = response[i].lon
 					var lat = response[i].lat
-					L.marker([lat, lon], { icon: fireIcon }).addTo(fireTypeMap.get(type)).bindPopup("<h3>" + "ID:" + id + "</h3>" + "Type:" + "</br>" + type + "</br>" + "Intensity:" + intensity + "</br>" + "Range:" + range);
+					console.log(fireIconMap.get(type))
+					L.marker([lat, lon], { icon: fireIconMap.get(type) }).addTo(fireTypeMap.get(type)).bindPopup("<h3>" + "ID:" + id + "</h3>" + "Type:" + "</br>" + type + "</br>" + "Intensity:" + intensity + "</br>" + "Range:" + range);
 				}
 			})
 
@@ -334,10 +353,13 @@
 
 
 	</script>
+	
+	<div id="position">
 	<p id="xy">0,0
-	<p>
+	<p></div>
+	
 		<script>
-			function onMouseMove(e) {
+			function onMouseMove(e) {	
 				document.getElementById("xy").innerHTML = e.latlng;
 			}
 			map.on('mousemove', onMouseMove);
