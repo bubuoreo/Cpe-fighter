@@ -18,7 +18,10 @@ public class Comm {
 
 	// "http://localhost:8081/fire";
 	private static final String URL_FIRE = "http://vps.cpe-sn.fr:8081/fire";
+	private static final String URL_FACILITY = "http://vps.cpe-sn.fr:8081/facility";
 	private static final String URL_API_VEHICLE = "http://vps.cpe-sn.fr:8081/vehicle";
+	private static final String TEAM_UUID = "c230e0e0-8de9-4c39-8dec-e246dc0c6334";
+	private static final Integer FACILITY_ID = 267;
 
 	public static List<FireDTO> getFires() {
 		
@@ -26,6 +29,19 @@ public class Comm {
 		RestTemplate restTemplate = new RestTemplate();
 		// Send request with GET method and default Headers.
 		FireDTO[] fireDTOs = restTemplate.getForObject(URL_FIRE, FireDTO[].class);
+		List<FireDTO> firesList = new ArrayList<FireDTO>();
+		for (FireDTO fireDTO : fireDTOs) {
+			firesList.add(fireDTO);
+		}
+		return firesList;
+	}
+	
+	public static List<FireDTO> getFacility() {
+		
+		System.out.println("requête pour obtenir notre facility");
+		RestTemplate restTemplate = new RestTemplate();
+		// Send request with GET method and default Headers.
+		FireDTO[] fireDTOs = restTemplate.getForObject(URL_FACILITY + "/" + FACILITY_ID, FireDTO[].class);
 		List<FireDTO> firesList = new ArrayList<FireDTO>();
 		for (FireDTO fireDTO : fireDTOs) {
 			firesList.add(fireDTO);
@@ -46,15 +62,15 @@ public class Comm {
 		return vehiclesList;
 	}
 
-//	public static void postRemoteUser(UserDTO user) {
-//
-//		RestTemplate restTemplate = new RestTemplate();
-//		HttpHeaders headers = new HttpHeaders();
-//		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
-//		HttpEntity<UserDTO> requestBody = new HttpEntity<>(user, headers);
-//		// Send request with PUT method.
-//		restTemplate.postForEntity(URL_USER + "/" + user.getId(), requestBody, UserDTO.class);
-//
-//	}
+	public static void putUpdateVehicle(VehicleDTO vehicleDTO) {
+
+		RestTemplate restTemplate = new RestTemplate();
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+		HttpEntity<VehicleDTO> requestBody = new HttpEntity<>(vehicleDTO, headers);
+		// Send request with PUT method.
+		restTemplate.put(URL_API_VEHICLE + "/" + TEAM_UUID + "/" + vehicleDTO.getId(), requestBody, FireDTO.class);
+
+	}
 
 }

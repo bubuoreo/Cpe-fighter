@@ -29,18 +29,20 @@ public class VehicleService {
 		List<VehicleDTO> vehiclesList = Comm.getVehicles();
 		List<Object> returnList = new ArrayList<Object>();
 		returnList.add(firesList.get(0));
+		List<VehicleDTO> tmp = new ArrayList<VehicleDTO>();
 		for (VehicleDTO vehicleDTO : vehiclesList) {
-			System.out.println(vehicleDTO);
-			if (vehicleDTO.getFacilityRefID() != facilityRefId) {
-				vehiclesList.remove(vehicleDTO);
+			if ((int) vehicleDTO.getFacilityRefID() == (int) facilityRefId) {
+				System.out.println(vehicleDTO.getId());
+				tmp.add(vehicleDTO);
 			}
 		}
-		for (VehicleDTO vehicleDTO : vehiclesList) {
+		for (VehicleDTO vehicleDTO : tmp) {
 			if (vehicleDTO.getLat() == facilityCoords[0] && vehicleDTO.getLon() == facilityCoords[1]) {
 				ret = true;
 				returnList.add(vehicleDTO);
 				vehicleDTO.setLat(fireTarget.getLat());
 				vehicleDTO.setLon(fireTarget.getLon());
+				Comm.putUpdateVehicle(vehicleDTO);
 			}
 		}
 		return returnList;
@@ -55,4 +57,5 @@ public class VehicleService {
 		List<FireDTO> firesList = Comm.getFires();
 		return firesList;
 	}
+	
 }
