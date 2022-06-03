@@ -1,8 +1,8 @@
-package com.repository;
+package com.sp.repository;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.model.Facility;
+import com.sp.model.Facility;
 
 public interface FacilityRepository extends CrudRepository<Facility,Integer>{
 

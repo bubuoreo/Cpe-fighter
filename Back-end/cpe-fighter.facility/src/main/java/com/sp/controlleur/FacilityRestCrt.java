@@ -1,4 +1,4 @@
-package com.controlleur;
+package com.sp.controlleur;
 
 public class FacilityRestCrt {
 	
