@@ -13,27 +13,13 @@ public class Comm {
 	
 	private static final String URL_FIRE="http://vps.cpe-sn.fr:8081";  
 	
-	public static FireDTO getRemoteFire(int id) {
+	public static Iterable<FireDTO> getRemoteFire() {
 
 		RestTemplate restTemplate = new RestTemplate();
 
 		// Send request with GET method and default Headers.
-		FireDTO c_result = restTemplate.getForObject(URL_FIRE+"/"+id, FireDTO.class);
+		Iterable<FireDTO> c_result = (Iterable<FireDTO>)restTemplate.getForObject(URL_FIRE+"/fire", FireDTO.class);
 		return c_result;
 	}
-		
-
-	public static void postRemoteFire(FireDTO fire) {
-		RestTemplate restTemplate = new RestTemplate();
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
-		HttpEntity<FireDTO> requestBody = new HttpEntity<>(fire, headers);
-
-		// Send request with PUT method.
-		restTemplate.postForEntity(URL_FIRE+"/"+ fire.getId(), requestBody,FireDTO.class);
-	}
-	
-	
-	
-	
+			
 }
