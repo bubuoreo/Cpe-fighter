@@ -6,15 +6,11 @@ import java.util.*;
 import com.DTO.FireDTO;
 import com.sp.model.Fire;
 import com.sp.repository.FireRepository;
-//import com.sp.requests.LoginRequest;
-//import com.sp.requests.RegisterRequest;
+
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-//import org.springframework.web.server.ResponseStatusException;
-
-//Integer id, String type, float intensity, float range, double lon, double lat
 
 @Service
 public class FireService {
@@ -26,10 +22,13 @@ public class FireService {
 		FireDTO fireDto = new FireDTO(fire.getId(),fire.getType(),fire.getIntensity(),fire.getRange(),fire.getLon(),fire.getLat());
 		return fireDto;
 	}
+	
+	/*
 	private Fire FireDTOToFire(FireDTO fireDTO){
 		Fire fire = new Fire(fireDTO.getId(),fireDTO.getType(),fireDTO.getIntensity(),fireDTO.getRange(),fireDTO.getLon(),fireDTO.getLat());
 		return fire;
 	}
+	*/
 	
     public FireDTO getFireById(int id) {
 		Optional<Fire> fire = fireRepository.findById(id);
