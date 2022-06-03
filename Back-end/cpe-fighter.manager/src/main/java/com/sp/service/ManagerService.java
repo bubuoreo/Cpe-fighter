@@ -1,21 +1,13 @@
-package com.sp.model;
+package com.sp.service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.DTO.FireDTO;
 import com.DTO.VehicleDTO;
-import com.sp.repository.VehicleRepository;
 import com.sp.tools.Comm;
 
-@Service
-public class VehicleService {
-	
-	@Autowired
-	VehicleRepository vehicleRepository;
+public class ManagerService {
 	
 	private static final Integer facilityRefId = 267;
 	// contient les coordonnée de la caserne sous la forme [lattitude, longitude]
