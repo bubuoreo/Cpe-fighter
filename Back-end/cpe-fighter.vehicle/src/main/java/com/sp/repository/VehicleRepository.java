@@ -1,5 +1,10 @@
 package com.sp.repository;
 
-public interface VehicleRepository {
+import org.springframework.data.repository.CrudRepository;
+
+import com.sp.model.Vehicle;
+
+
+public interface VehicleRepository extends CrudRepository<Vehicle, Integer> {
 
 }
