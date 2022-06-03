@@ -10,19 +10,44 @@
     position: absolute;
     width: 150px;
     height: 350px;
-    top: 50px;
+    top: 5px;
     right: 150px;
     
     
   }
-  
+#cre {
+    z-index: 3;
+    position: absolute;
+    left: 40%;
+    top: 10px;
+    
+    
+    
+    
+  }
+#position {
+    z-index: 2;
+    position: absolute;
+    bottom: 30px;
+    left: 50px;
+   
+    
+}
+#xy {
+
+    font-size: x-large;
+    background: rgb(255, 255, 255);
+
+}    
+    
+
 #fireFilter{
-    background: rgb(255, 255, 255);;
+    background: rgb(255, 255, 255);
 
 }
 
 #vehicleFilter{
-    background: rgb(255, 255, 255);;
+    background: rgb(255, 255, 255);
 
 }
 #liquide{
