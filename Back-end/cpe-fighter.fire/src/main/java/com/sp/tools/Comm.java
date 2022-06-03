@@ -1,5 +1,8 @@
 package com.sp.tools;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -11,15 +14,25 @@ import com.DTO.FireDTO;
 
 public class Comm {
 	
-	private static final String URL_FIRE="http://vps.cpe-sn.fr:8081";  
+	private static final String URL_FIRE="http://vps.cpe-sn.fr:8081/fire";  
 	
-	public static Iterable<FireDTO> getRemoteFire() {
+	public static List<FireDTO> getFires() {
 
 		RestTemplate restTemplate = new RestTemplate();
-
 		// Send request with GET method and default Headers.
-		Iterable<FireDTO> c_result = (Iterable<FireDTO>)restTemplate.getForObject(URL_FIRE+"/fire", FireDTO.class);
-		return c_result;
+		FireDTO[] fireDTOs = restTemplate.getForObject(URL_FIRE, FireDTO[].class);
+		List<FireDTO> firesList = new ArrayList<FireDTO>();
+		for (FireDTO fireDTO : fireDTOs) {
+			firesList.add(fireDTO);
+		}
+		return firesList;
 	}
-			
+	
+	public static FireDTO getFire(Integer id) {
+
+		RestTemplate restTemplate = new RestTemplate();
+		// Send request with GET method and default Headers.
+		FireDTO fireDTO = restTemplate.getForObject(URL_FIRE + "/" + id, FireDTO.class);
+		return fireDTO;
+	}
 }

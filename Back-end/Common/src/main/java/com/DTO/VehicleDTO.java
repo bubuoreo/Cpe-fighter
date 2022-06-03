@@ -4,6 +4,8 @@ import com.ENUM.LiquidType;
 import com.ENUM.VehicleType;
 
 public class VehicleDTO {
+	
+
 	public static final int CREW_MEMBER_START_VALUE=-1;
 	private Integer id;
 	private double lon;
@@ -108,6 +110,12 @@ public class VehicleDTO {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
 
+	@Override
+	public String toString() {
+		return "VehicleDTO [id=" + id + ", lon=" + lon + ", lat=" + lat + ", type=" + type + ", liquidType="
+				+ liquidType + ", liquidQuantity=" + liquidQuantity + ", fuel=" + fuel + ", crewMember=" + crewMember
+				+ ", facilityRefID=" + facilityRefID + "]";
+	}
+	
 }
