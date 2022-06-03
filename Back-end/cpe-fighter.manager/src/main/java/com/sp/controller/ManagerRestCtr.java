@@ -14,11 +14,16 @@ public class ManagerRestCtr {
 	@Autowired
 	ManagerService managerService;
 	
+//	@GetMapping("/manager")
+//	public List<Object> manage() {
+//		List<Object> returnList = managerService.manageFire();
+//		// TODO : fin du feu --> retour à la caserne
+//		return returnList;
+//	}
+	
 	@GetMapping("/manager")
-	public List<Object> manage() {
-		List<Object> returnList = managerService.manageFire();
-		// TODO : fin du feu --> retour à la caserne
-		return returnList;
+	public void manage() {
+		managerService.lancement();
 	}
 	
 }

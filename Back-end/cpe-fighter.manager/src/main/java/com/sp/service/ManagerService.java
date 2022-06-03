@@ -3,10 +3,13 @@ package com.sp.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.DTO.FireDTO;
 import com.DTO.VehicleDTO;
 import com.sp.tools.Comm;
 
+@Service
 public class ManagerService {
 	
 	private static final Integer facilityRefId = 267;
@@ -54,8 +57,8 @@ public class ManagerService {
 	
 	public boolean returnTofacility(VehicleDTO vehicleDTO) {
 		boolean ret = false;
-		vehicleDTO.setLat(facilityCoords[0]);
-		vehicleDTO.setLon(facilityCoords[1]);
+		vehicleDTO.setLat(FACILITY_COORDS[0]);
+		vehicleDTO.setLon(FACILITY_COORDS[1]);
 		return ret;
 	}
 	
