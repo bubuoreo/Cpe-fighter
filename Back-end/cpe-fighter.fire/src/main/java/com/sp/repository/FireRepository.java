@@ -7,5 +7,6 @@ import com.sp.model.Fire;
 
 @Repository
 public interface FireRepository  extends CrudRepository<Fire, Integer> {
-
+	
+	public Iterable<Fire> findAll();
 }

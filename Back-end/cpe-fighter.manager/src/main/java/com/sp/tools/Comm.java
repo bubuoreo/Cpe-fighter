@@ -24,7 +24,7 @@ public class Comm {
 	private static final Integer FACILITY_ID = 267;
 
 	public static List<FireDTO> getFires() {
-		
+
 		System.out.println("requête pour obtenir les feux");
 		RestTemplate restTemplate = new RestTemplate();
 		// Send request with GET method and default Headers.
@@ -35,9 +35,17 @@ public class Comm {
 		}
 		return firesList;
 	}
-	
+
+	public static FireDTO getFire(Integer id) {
+		System.out.println("requête pour obtenir les feux");
+		RestTemplate restTemplate = new RestTemplate();
+		// Send request with GET method and default Headers.
+		FireDTO fire = restTemplate.getForObject(URL_FIRE + "/" + id, FireDTO.class);
+		return fire;
+	}
+
 	public static List<FireDTO> getFacility() {
-		
+
 		System.out.println("requête pour obtenir notre facility");
 		RestTemplate restTemplate = new RestTemplate();
 		// Send request with GET method and default Headers.
@@ -50,13 +58,13 @@ public class Comm {
 	}
 
 	public static List<VehicleDTO> getVehicles() {
-		
+
 		System.out.println("requête pour obtenir les vehicules");
 		RestTemplate restTemplate = new RestTemplate();
 		// Send request with GET method and default Headers.
-		VehicleDTO[] vehicleDTOs= restTemplate.getForObject(URL_API_VEHICLE, VehicleDTO[].class);
-		 List<VehicleDTO> vehiclesList = new ArrayList<VehicleDTO>();
-		 for (VehicleDTO vehicleDTO : vehicleDTOs) {
+		VehicleDTO[] vehicleDTOs = restTemplate.getForObject(URL_API_VEHICLE, VehicleDTO[].class);
+		List<VehicleDTO> vehiclesList = new ArrayList<VehicleDTO>();
+		for (VehicleDTO vehicleDTO : vehicleDTOs) {
 			vehiclesList.add(vehicleDTO);
 		}
 		return vehiclesList;
@@ -69,8 +77,15 @@ public class Comm {
 		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
 		HttpEntity<VehicleDTO> requestBody = new HttpEntity<>(vehicleDTO, headers);
 		// Send request with PUT method.
-		restTemplate.put(URL_API_VEHICLE + "/" + TEAM_UUID + "/" + vehicleDTO.getId(), requestBody, FireDTO.class);
+		restTemplate.put(URL_API_VEHICLE + "/" + TEAM_UUID + "/" + vehicleDTO.getId(), requestBody, VehicleDTO.class);
+	}
 
+	public static VehicleDTO getVehicle(Integer id) {
+		System.out.println("requête pour obtenir le vehicule avec l'id=" + id);
+		RestTemplate restTemplate = new RestTemplate();
+		// Send request with GET method and default Headers.
+		VehicleDTO vehicleDTOs = restTemplate.getForObject(URL_API_VEHICLE + "/" + id, VehicleDTO.class);
+		return vehicleDTOs;
 	}
 
 }
