@@ -23,7 +23,6 @@ public class VehicleService {
 	private static final Double[] facilityCoords = {(Double) 45.779367096682726,(Double) 4.859884072903303};
 
 	public List<Object> manageFire() {
-		Boolean ret = false;
 		List<FireDTO> firesList = Comm.getFires();
 		FireDTO fireTarget = firesList.get(0);
 		List<VehicleDTO> vehiclesList = Comm.getVehicles();
@@ -36,14 +35,14 @@ public class VehicleService {
 				tmp.add(vehicleDTO);
 			}
 		}
+		
 		for (VehicleDTO vehicleDTO : tmp) {
-			// if (vehicleDTO.getLat() == facilityCoords[0] && vehicleDTO.getLon() == facilityCoords[1]) {
-				ret = true;
+			if (vehicleDTO.getLat() == facilityCoords[0] && vehicleDTO.getLon() == facilityCoords[1]) {
 				returnList.add(vehicleDTO);
 				vehicleDTO.setLat(fireTarget.getLat());
 				vehicleDTO.setLon(fireTarget.getLon());
 				Comm.putUpdateVehicle(vehicleDTO);
-			//}
+			}
 		}
 		return returnList;
 	}
