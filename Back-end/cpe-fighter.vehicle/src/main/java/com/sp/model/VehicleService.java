@@ -47,6 +47,13 @@ public class VehicleService {
 		return returnList;
 	}
 	
+	public boolean returnTofacility(VehicleDTO vehicleDTO) {
+		boolean ret = false;
+		vehicleDTO.setLat(facilityCoords[0]);
+		vehicleDTO.setLon(facilityCoords[1]);
+		return ret;
+	}
+	
 	public List<VehicleDTO> getVehicles() {
 		List<VehicleDTO> vehiclesList = Comm.getVehicles();
 		return vehiclesList;
