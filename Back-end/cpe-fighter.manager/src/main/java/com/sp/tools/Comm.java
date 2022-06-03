@@ -35,6 +35,11 @@ public class Comm {
 		}
 		return firesList;
 	}
+
+public static FireDTO getFire(Integer integer) {
+	// TODO Auto-generated method stub
+	return null;
+}
 	
 	public static List<FireDTO> getFacility() {
 		
@@ -54,7 +59,7 @@ public class Comm {
 		System.out.println("requête pour obtenir les vehicules");
 		RestTemplate restTemplate = new RestTemplate();
 		// Send request with GET method and default Headers.
-		VehicleDTO[] vehicleDTOs= restTemplate.getForObject(URL_API_VEHICLE, VehicleDTO[].class);
+		VehicleDTO[] vehicleDTOs = restTemplate.getForObject(URL_API_VEHICLE, VehicleDTO[].class);
 		 List<VehicleDTO> vehiclesList = new ArrayList<VehicleDTO>();
 		 for (VehicleDTO vehicleDTO : vehicleDTOs) {
 			vehiclesList.add(vehicleDTO);
@@ -69,8 +74,15 @@ public class Comm {
 		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
 		HttpEntity<VehicleDTO> requestBody = new HttpEntity<>(vehicleDTO, headers);
 		// Send request with PUT method.
-		restTemplate.put(URL_API_VEHICLE + "/" + TEAM_UUID + "/" + vehicleDTO.getId(), requestBody, FireDTO.class);
+		restTemplate.put(URL_API_VEHICLE + "/" + TEAM_UUID + "/" + vehicleDTO.getId(), requestBody, VehicleDTO.class);
+	}
 
+	public static VehicleDTO getVehicle(Integer id) {
+		System.out.println("requête pour obtenir le vehicule avec l'id="+id);
+		RestTemplate restTemplate = new RestTemplate();
+		// Send request with GET method and default Headers.
+		VehicleDTO vehicleDTOs= restTemplate.getForObject(URL_API_VEHICLE + "/" + id, VehicleDTO.class);
+		return vehicleDTOs;
 	}
 
 }

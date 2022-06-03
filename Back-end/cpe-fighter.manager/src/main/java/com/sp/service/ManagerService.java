@@ -12,7 +12,20 @@ public class ManagerService {
 	private static final Integer facilityRefId = 267;
 	// contient les coordonnée de la caserne sous la forme [lattitude, longitude]
 	// à changer par un objet de type de Coord donné par le prof
-	private static final Double[] facilityCoords = {(Double) 45.779367096682726,(Double) 4.859884072903303};
+	private static final Double[] FACILITY_COORDS = {(Double) 45.779367096682726,(Double) 4.859884072903303};
+
+	InterventionRunnable mRunnable;
+	private Thread modelThread;
+	
+	
+	public ManagerService() {
+		this.mRunnable=new InterventionRunnable();
+		modelThread=new Thread(mRunnable);
+	}
+	
+	public void lancement() {
+		modelThread.start();		
+	}
 
 	public List<Object> manageFire() {
 		List<FireDTO> firesList = Comm.getFires();
@@ -29,7 +42,7 @@ public class ManagerService {
 		}
 		
 		for (VehicleDTO vehicleDTO : tmp) {
-			if (vehicleDTO.getLat() == facilityCoords[0] && vehicleDTO.getLon() == facilityCoords[1]) {
+			if (vehicleDTO.getLat() == FACILITY_COORDS[0] && vehicleDTO.getLon() == FACILITY_COORDS[1]) {
 				returnList.add(vehicleDTO);
 				vehicleDTO.setLat(fireTarget.getLat());
 				vehicleDTO.setLon(fireTarget.getLon());
