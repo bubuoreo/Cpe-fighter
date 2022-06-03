@@ -20,15 +20,43 @@ public class ManagerService {
 		List<VehicleDTO> vehiclesList = Comm.getVehicles();
 		List<Object> returnList = new ArrayList<Object>();
 		returnList.add(firesList.get(0));
-		List<VehicleDTO> tmp = new ArrayList<VehicleDTO>();
+		List<VehicleDTO> my_vehicule = new ArrayList<VehicleDTO>();
 		for (VehicleDTO vehicleDTO : vehiclesList) {
 			if ((int) vehicleDTO.getFacilityRefID() == (int) facilityRefId) {
 				System.out.println(vehicleDTO.getId());
-				tmp.add(vehicleDTO);
+				my_vehicule.add(vehicleDTO);
 			}
 		}
 		
-		for (VehicleDTO vehicleDTO : tmp) {
+		
+		for (VehicleDTO vehicleDTO : my_vehicule) {
+			if (vehicleDTO.getLat() == facilityCoords[0] && vehicleDTO.getLon() == facilityCoords[1]) {
+				returnList.add(vehicleDTO);
+				vehicleDTO.setLat(fireTarget.getLat());
+				vehicleDTO.setLon(fireTarget.getLon());
+				Comm.putUpdateVehicle(vehicleDTO);
+			}
+		}
+		return returnList;
+	}
+	
+	public List<Object> managerFire() {
+		List<FireDTO> firesList = Comm.getFires();
+		List<VehicleDTO> vehiclesList = Comm.getVehicles();
+		FireDTO fireTarget = firesList.get(0);
+		List<Object> returnList = new ArrayList<Object>();
+		returnList.add(firesList.get(0));
+		List<VehicleDTO> my_vehicule = new ArrayList<VehicleDTO>();
+		for (VehicleDTO vehicleDTO : vehiclesList) {
+			if ((int) vehicleDTO.getFacilityRefID() == (int) facilityRefId) {
+				System.out.println(vehicleDTO.getId());
+				my_vehicule.add(vehicleDTO);
+			}
+		}
+		
+		
+		
+		for (VehicleDTO vehicleDTO : my_vehicule) {
 			if (vehicleDTO.getLat() == facilityCoords[0] && vehicleDTO.getLon() == facilityCoords[1]) {
 				returnList.add(vehicleDTO);
 				vehicleDTO.setLat(fireTarget.getLat());
@@ -43,6 +71,7 @@ public class ManagerService {
 		boolean ret = false;
 		vehicleDTO.setLat(facilityCoords[0]);
 		vehicleDTO.setLon(facilityCoords[1]);
+		Comm.putUpdateVehicle(vehicleDTO);
 		return ret;
 	}
 	
