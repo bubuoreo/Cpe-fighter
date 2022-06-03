@@ -21,11 +21,7 @@ public class VehicleRestCtr {
 	@GetMapping("/manager")
 	public List<Object> manage() {
 		List<Object> returnList = vehicleService.manageFire();
-		// récupération des feux
-		// récup les véhicules
-		// Si véhicule à la caserne, téléporte vers le feu
-		// si véhicule pas à la caserne, c'est qu'il travaille sur un feu
-		// fin du feu --> retour à la caserne
+		// TODO : fin du feu --> retour à la caserne
 		return returnList;
 	}
 	

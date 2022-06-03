@@ -17,7 +17,7 @@ import org.springframework.web.client.RestTemplate;
 public class Comm {
 
 	// "http://localhost:8081/fire";
-	private static final String URL_FIRE = "http://vps.cpe-sn.fr:8081/fire";
+	private static final String URL_FIRE = "http://localhost:8081/fire";
 	private static final String URL_FACILITY = "http://vps.cpe-sn.fr:8081/facility";
 	private static final String URL_API_VEHICLE = "http://vps.cpe-sn.fr:8081/vehicle";
 	private static final String TEAM_UUID = "c230e0e0-8de9-4c39-8dec-e246dc0c6334";

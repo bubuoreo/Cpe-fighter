@@ -18,12 +18,12 @@ public class FireRestController {
 	
 	@GetMapping("/fire/{id}")
 	public FireDTO getFire(@PathVariable int id){
-		return this.fireService.getFireById(id);
+		return this.fireService.getFire(id);
 	}
 	
 	@GetMapping("/fire")
 	public Iterable<FireDTO> getFires(){
-		return this.fireService.getAllFires();
+		return this.fireService.getFires();
 	}
 
 	

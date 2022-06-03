@@ -37,13 +37,13 @@ public class VehicleService {
 			}
 		}
 		for (VehicleDTO vehicleDTO : tmp) {
-			if (vehicleDTO.getLat() == facilityCoords[0] && vehicleDTO.getLon() == facilityCoords[1]) {
+			// if (vehicleDTO.getLat() == facilityCoords[0] && vehicleDTO.getLon() == facilityCoords[1]) {
 				ret = true;
 				returnList.add(vehicleDTO);
 				vehicleDTO.setLat(fireTarget.getLat());
 				vehicleDTO.setLon(fireTarget.getLon());
 				Comm.putUpdateVehicle(vehicleDTO);
-			}
+			//}
 		}
 		return returnList;
 	}
