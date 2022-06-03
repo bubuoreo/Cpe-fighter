@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.DTO.FireDTO;
 import com.DTO.VehicleDTO;
-import com.sp.model.VehicleService;
+import com.sp.service.VehicleService;
 import com.sp.tools.Comm;
 
 @RestController

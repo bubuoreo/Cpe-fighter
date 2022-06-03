@@ -1,4 +1,4 @@
-package com.sp.model;
+package com.sp.service;
 
 import java.util.ArrayList;
 import java.util.List;
