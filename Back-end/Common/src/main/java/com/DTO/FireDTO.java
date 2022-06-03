@@ -21,6 +21,8 @@ public class FireDTO {
 		this.lon = lon;
 		this.lat = lat;
 	}
+	
+	// GETTER AND SETTER
 	public Integer getId() {
 		return id;
 	}
