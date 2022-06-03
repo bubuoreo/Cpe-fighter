@@ -45,17 +45,16 @@
 		var B_Alcohol = L.layerGroup().addTo(map);
 		var B_Plastics = L.layerGroup().addTo(map);
 		var D_Metals = L.layerGroup().addTo(map);
-		var E_Electrics = L.layerGroup().addTo(map);
+		var E_Electric = L.layerGroup().addTo(map);
 		//var table = new Map('B_Gasoline',B_Gasoline,'C_Flammable_Gases',C_Flammable_Gases, 'A',A,'B_Alcohol',B_Alcohol,'B_Plastics',B_Plastics,'D_Metals',D_Metals,'E_Electrics',E_Electrics);
 		const fireTypeMap = new Map([
 			['B_Gasoline', B_Gasoline],
 			['C_Flammable_Gases', C_Flammable_Gases],
-			["age", 30],
 			['A', A],
 			['B_Alcohol', B_Alcohol],
 			["B_Plastics", B_Plastics],
 			['D_Metals', D_Metals],
-			['E_Electrics', E_Electrics]
+			['E_Electric', E_Electric]
 		]);
 
 		var Car = L.layerGroup().addTo(map);
@@ -94,15 +93,16 @@
 			.then(response => response.json())
 			.then(function (response) {
 				for (let i = 0; i < response.length; i++) {
+					console.log(response.length)
 					var id = response[i].id
 					var type = response[i].type
-					console.log(typeof type)
+					console.log(type)
 					console.log(typeof B_Gasoline)
 					var intensity = response[i].intensity
 					var range = response[i].range
 					var lon = response[i].lon
 					var lat = response[i].lat
-					L.marker([lat, lon], { icon: fireIcon }).addTo(fireTypeMap.get(response[i].type)).bindPopup("<h3>" + "ID:" + id + "</h3>" + "Type:" + "</br>" + type + "</br>" + "Intensity:" + intensity + "</br>" + "Range:" + range);
+					L.marker([lat, lon], { icon: fireIcon }).addTo(fireTypeMap.get(type)).bindPopup("<h3>" + "ID:" + id + "</h3>" + "Type:" + "</br>" + type + "</br>" + "Intensity:" + intensity + "</br>" + "Range:" + range);
 				}
 			})
 
