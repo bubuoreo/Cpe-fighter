@@ -87,7 +87,7 @@
 			['CAR', Car],
 			['FIRE_ENGINE', Fire_engine],
 			['PUMPER_TRUCK', Pumper_truck],
-			["WATER_TENDER", Water_tender],
+			["WATER_TENDERS", Water_tender],
 			['TURNTABLE_LADDER_TRUCK', Turntable_ladder_truck],
 			['TRUCK', Truck]
 		]);
@@ -145,6 +145,7 @@
 			.then(function (response) {
 				for (let i = 0; i < response.length; i++) {
 					var type = response[i].type
+					console.log(type);
 					var id = response[i].id
 					var crew = response[i].crewMember
 					var fuel = response[i].fuel
@@ -152,7 +153,8 @@
 					var liquidType = response[i].liquidType
 					var lon = response[i].lon
 					var lat = response[i].lat
-					L.marker([lat, lon], { icon: vehicleIcon }).addTo(vehicleTypeMap.get(type)).addTo(liquidTypeMap.get(liquidType)).bindPopup("<h3>" + type + " " + id + "</h3>" + "crewMember:" + crew + "</br>fuel" + fuel + "</br>liquidQuantity:" + liquidQuantity + "</br>liquidType:" + liquidType);
+					L.marker([lat, lon], { icon: vehicleIcon }).addTo(vehicleTypeMap.get(type)).bindPopup("<h3>" + type + " " + id + "</h3>" + "crewMember:" + crew + "</br>fuel" + fuel + "</br>liquidQuantity:" + liquidQuantity + "</br>liquidType:" + liquidType);
+					L.marker([lat, lon], { icon: vehicleIcon }).addTo(liquidTypeMap.get(liquidType));
 				}
 			})
 
