@@ -11,6 +11,19 @@ import com.DTO.FireDTO;
 import com.DTO.VehicleDTO;
 import com.sp.tools.Comm;
 
+/**
+ * 
+ * @author alexandre.burlot
+ * TODO:
+ * - faire la téléortation à la fin
+ * - pourquoi on retourne à la facility
+ * - comprendre algo au plus proche
+ * - séparer en sous-fonctions
+ * - faire des sorties plus propres
+ * - 
+ */
+
+
 public class MouvementRunnable implements Runnable {
 
 	private Map<Integer, Integer> vehicleFireIdMap;
@@ -79,10 +92,11 @@ public class MouvementRunnable implements Runnable {
 						target = new Coord(FACILITY_COORDS.getLon(), FACILITY_COORDS.getLat());
 						newRoute = Comm.getItineraire(new Coord(vehicleDTO.getLon(), vehicleDTO.getLat()),
 								new Coord(target.getLon(), target.getLat()));
+						// TODO: mettre en dernier la position du feu
 						System.out.println(newRoute);
 						itinérairesMap.put(vehicleDTO.getId(), newRoute);
 					}
-					
+
 				}
 				System.out.println(itinérairesMap.get(vehicleDTO.getId()));
 			}
@@ -93,8 +107,10 @@ public class MouvementRunnable implements Runnable {
 				List<Coord> routeCoords = entry.getValue();
 				// le véhicule bouge seulement s'il possède une destination
 				if (routeCoords.size() > 1) {
-					routeCoords.remove(0);
-					System.out.println("MouvementRunnable: Vehicle id="+vehicleDTO.getId()+" vers cible ={"+routeCoords.get(0).getLat()+","+routeCoords.get(0).getLon()+"}");
+					if (routeCoords.get(0) == new Coord(vehicleDTO.getLon(),vehicleDTO.getLat())) {
+						routeCoords.remove(0);
+					}
+					// System.out.println("MouvementRunnable: Vehicle id="+vehicleDTO.getId()+" vers cible ={"+routeCoords.get(0).getLat()+","+routeCoords.get(0).getLon()+"}");
 					vehicleDTO.setLat(routeCoords.get(0).getLat());
 					vehicleDTO.setLon(routeCoords.get(0).getLon());
 					routeCoords.remove(0);

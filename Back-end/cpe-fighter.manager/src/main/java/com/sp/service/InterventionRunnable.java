@@ -137,15 +137,6 @@ public class InterventionRunnable implements Runnable {
 					}
 				}
 		    }
-//			
-//			System.out.println("InterventionRunnable: Les véhicules rentrent à la base");
-//			// les vehicules dans callbackVehicleList doivent rentrer.
-//			for (Integer id : callbackVehicleList) {
-//				VehicleDTO vehicleDTO = Comm.getVehicle(id);
-//				vehicleDTO.setLat(FACILITY_COORDS.getLon());
-//				vehicleDTO.setLon(FACILITY_COORDS.getLat());
-//				Comm.putUpdateVehicle(vehicleDTO);
-//			}
 			
 			// Sauvegarder la liste tmp en temps que fireList
 			fireList = tmp;
@@ -153,7 +144,7 @@ public class InterventionRunnable implements Runnable {
 			
 			System.out.println("InterventionRunnable: On attend");
 			try {
-				Thread.sleep(2000);
+				Thread.sleep(10000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -174,10 +165,14 @@ public class InterventionRunnable implements Runnable {
 				fireTarget = Comm.getFire(fireDTOId);
 			}
 			else {
-				fireDTO = Comm.getFire(fireDTOId);
-				if (Math.sqrt(Math.pow(fireDTO.getLon()-vehicleDTO.getLon(),2) + Math.pow(fireDTO.getLat()-vehicleDTO.getLat(),2)) <
-						Math.sqrt(Math.pow(fireTarget.getLon()-vehicleDTO.getLon(),2) + Math.pow(fireTarget.getLat()-vehicleDTO.getLat(),2))) {
-					fireTarget = fireDTO;
+				try {
+					fireDTO = Comm.getFire(fireDTOId);
+					if (Math.pow(fireDTO.getLon()-vehicleDTO.getLon(),2) + Math.pow(fireDTO.getLat()-vehicleDTO.getLat(),2) <
+							Math.pow(fireTarget.getLon()-vehicleDTO.getLon(),2) + Math.pow(fireTarget.getLat()-vehicleDTO.getLat(),2)) {
+						fireTarget = fireDTO;
+					}
+				} catch (Exception e) {
+					System.out.println("Le feu est null, suivant !!");
 				}
 			}
 		}
