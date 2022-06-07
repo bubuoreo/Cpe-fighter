@@ -56,7 +56,7 @@ function getVehicule() {
     fetch("http://vps.cpe-sn.fr:8081/vehicle/", requestOptions)
     .then(response => response.text())
     .then(function(response){
-        console.log(response);
+       
     })
 }
 
