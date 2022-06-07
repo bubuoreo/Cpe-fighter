@@ -22,7 +22,8 @@
 			onclick="window.location.href='../Lot2/HTML/formulaireCreation.html'">Créer</button>
 		<button id="buttonDelete" type="button"
 			onclick="window.location.href='../Lot2/HTML/formulaireSupression.html'">Supprimer</button>
-		<button type="button" onclick="modifyVehicule()">Modifier</button>
+		<button id="buttonModify" type="button"
+			onclick="window.location.href='../Lot2/HTML/formulaireModification.html'">Modifier</button>
 	</span>
 </div>
 	<div  class="map" id="map" style="height: 700px;"></div>
@@ -87,7 +88,7 @@
 			['CAR', Car],
 			['FIRE_ENGINE', Fire_engine],
 			['PUMPER_TRUCK', Pumper_truck],
-			["WATER_TENDER", Water_tender],
+			["WATER_TENDERS", Water_tender],
 			['TURNTABLE_LADDER_TRUCK', Turntable_ladder_truck],
 			['TRUCK', Truck]
 		]);
@@ -149,6 +150,7 @@
 				for (let i = 0; i < response.length; i++) {
 					console.log(i)
 					var type = response[i].type
+					console.log(type);
 					var id = response[i].id
 					var crew = response[i].crewMember
 					var fuel = response[i].fuel
@@ -156,7 +158,8 @@
 					var liquidType = response[i].liquidType
 					var lon = response[i].lon
 					var lat = response[i].lat
-					L.marker([lat, lon], { icon: vehicleIcon }).addTo(vehicleTypeMap.get(type)).addTo(liquidTypeMap.get(liquidType)).bindPopup("<h3>" + type + " " + id + "</h3>" + "crewMember:" + crew + "</br>fuel" + fuel + "</br>liquidQuantity:" + liquidQuantity + "</br>liquidType:" + liquidType);
+					L.marker([lat, lon], { icon: vehicleIcon }).addTo(liquidTypeMap.get(liquidType));
+					L.marker([lat, lon], { icon: vehicleIcon }).addTo(vehicleTypeMap.get(type)).bindPopup("<h3>" + type + " " + id + "</h3>" + "crewMember:" + crew + "</br>fuel" + fuel + "</br>liquidQuantity:" + liquidQuantity + "</br>liquidType:" + liquidType);
 					}
 			})
 			function filtreour(){
