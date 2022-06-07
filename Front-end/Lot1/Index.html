@@ -76,6 +76,14 @@
 			['D_Metals', D_Metals],
 			['E_Electric', E_Electric]
 		]);
+		var v1 = L.layerGroup().addTo(map);
+		var vehi = L.layerGroup().addTo(map);
+		const facilityMap = new Map([
+			['1000', vehi]
+		
+
+			
+		]);
 
 		var Car = L.layerGroup().addTo(map);
 		var Fire_engine = L.layerGroup().addTo(map);
@@ -148,9 +156,7 @@
 				
 
 				for (let i = 0; i < response.length; i++) {
-					console.log(i)
 					var type = response[i].type
-					console.log(type);
 					var id = response[i].id
 					var crew = response[i].crewMember
 					var fuel = response[i].fuel
@@ -158,8 +164,18 @@
 					var liquidType = response[i].liquidType
 					var lon = response[i].lon
 					var lat = response[i].lat
-					L.marker([lat, lon], { icon: vehicleIcon }).addTo(vehicleTypeMap.get(type)).addTo(liquidTypeMap.get(liquidType)).bindPopup("<h3>" + type + " " + id + "</h3>" + "crewMember:" + crew + "</br>fuel" + fuel + "</br>liquidQuantity:" + liquidQuantity + "</br>liquidType:" + liquidType);
+					var faci = response[i].facilityRefID
+					console.log(i)
+					if(faci ==267 ){
+						console.log('faci',faci)
+						L.marker([lat, lon], { icon: vehicleIcon }).addTo(vehicleTypeMap.get(type)).addTo(liquidTypeMap.get(liquidType)).bindPopup("<h3>" + type + " " + id + "</h3>" + "crewMember:" + crew + "</br>fuel" + fuel + "</br>liquidQuantity:" + liquidQuantity + "</br>liquidType:" + liquidType);
 					}
+					else {
+						console.log('faci',faci)
+						L.marker([lat, lon], { icon: vehicleIcon }).addTo(vehicleTypeMap.get(type)).addTo(liquidTypeMap.get(liquidType)).addTo(facilityMap.get('1000')).bindPopup("<h3>" + type + " " + id + "</h3>" + "crewMember:" + crew + "</br>fuel" + fuel + "</br>liquidQuantity:" + liquidQuantity + "</br>liquidType:" + liquidType);
+
+					}
+				}
 			})
 			function filtreour(){
 				var our = document.querySelector('input[value="our"]');
@@ -168,17 +184,18 @@
 			.then(function (response) {
 				for (let i = 0; i < response.length; i++) {
 					var type = response[i].type
+				
 					
 
 					if (our.checked){
 						if (response[i].facilityRefID != 267){
-							map.removeLayer(vehicleTypeMap.get(type))
+							map.removeLayer(facilityMap.get('1000'))
 						
 					}
 						}
 					else {
 						if (response[i].facilityRefID != 267){
-							map.addLayer(vehicleTypeMap.get(type))
+							map.addLayer(facilityMap.get('1000'))
 						}
 					}
 					
