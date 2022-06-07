@@ -45,83 +45,129 @@ public class MouvementRunnable implements Runnable {
 	 */
 	public void run() {
 		System.out.println("Lancement du MouvementRunnable");
+		
 		Map<Integer, Integer> oldMap = vehicleFireIdMap;
 		Map<Integer, List<Coord>> itinérairesMap = new HashMap<Integer, List<Coord>>();
+		
 		VehicleDTO vehicleDTO;
 		List<Coord> newRoute;
+		
 		while (!this.isEnd) {
-			// parcours les attributions des feux
+			
+			// Regarde le couple {véhiculeId:fireId}
 			for (Entry<Integer, Integer> entry : vehicleFireIdMap.entrySet()) {
-				Coord target;
-				vehicleDTO = Comm.getVehicle(entry.getKey());
-				// regarde si l'attribution a changé
-				if (entry.getValue() != oldMap.get(entry.getKey())) {
-					System.out.println("MouvementRunnable: L'affectation du véhicule id=" + entry.getKey() + " a changé pour le feu id="
-							+ entry.getValue());
-					System.out.println("MouvementRunnable: Calcul de la nouvelle route pour ce véhicule");
-					// Si l'attribution à changé poour un null, on rentre à la base
+				
+				vehicleDTO = Comm.getVehicle(entry.getKey());						// Sélection du vehicleDTO
+				Coord target;														// Définition target du vehicleDTO 
+				
+				/**
+				 * Nouvel algo:
+				 * - si le véhicule possède un itinéraire:
+				 * 		on ne fait rien
+				 * - si aucun itinéraire
+				 * 		- si target == null
+				 * 			- retour à la facility
+				 * 		- sinon
+				 * 			- target sur feu
+				 */
+				
+				if (itinérairesMap.get(vehicleDTO.getId()) == null) {
 					if (entry.getValue() == null) {
-						System.out.println("MouvementRunnable: Le véhicule rentre à la base par un itinnéraire calculé");
-						target = new Coord(FACILITY_COORDS.getLon(), FACILITY_COORDS.getLat());
+						System.out.println("\nVehicleDTO id="+entry.getKey()+" : Le véhicule rentre à la base");
+						target = this.targetingFacility();
 					}
-					// Itinéraire vers le nouveau feu
 					else {
-						System.out.println("MouvementRunnable: On calcul l'itinéraire vers le feu");
-						FireDTO fireTarget = Comm.getFire(entry.getValue());
-						target = new Coord(fireTarget.getLon(), fireTarget.getLat());
+						System.out.println("\nVehicleDTO id="+entry.getKey()+" Fire id="+entry.getValue());
+						target = this.targetingFire(entry);
 					}
-					newRoute = Comm.getItineraire(new Coord(vehicleDTO.getLon(), vehicleDTO.getLat()),
-							new Coord(target.getLon(), target.getLat()));
-					System.out.println(newRoute);
-					itinérairesMap.put(vehicleDTO.getId(), newRoute);
-				} else if (itinérairesMap.get(vehicleDTO.getId()) != null) {
-					System.out.println("MouvementRunnable: L'affectation du véhicule id=" + entry.getKey()
-							+ " n'a pas changé et est toujours le feu id=" + entry.getValue());
+					// Création de la route pour aller à la target
+					itinérairesMap = this.setRoute(vehicleDTO, target, itinérairesMap);
 				}
 				else {
+					//TODO: Si FireId est null --> Itinéraire vers la base, on le change
+					
+					System.out.println("\nVehicleDTO id="+entry.getKey()+" Fire id="+entry.getValue()+" : Connaissance de l'itinéraire");
+					System.out.println("id="+vehicleDTO.getId()+" size="+itinérairesMap.get(vehicleDTO.getId()).size()+" "+itinérairesMap.get(vehicleDTO.getId()));
+				}
+			}
+				
+				/*
+				// La target est nouvelle
+				if (entry.getValue() != oldMap.get(entry.getKey())) {
+					
+					System.out.println("\nVehicleDTO id="+entry.getKey()+" Target id="+entry.getValue()+" : Nouvel itinéraire");
+					
+					// Attribution de feu à null --> target sur la base
+					if (entry.getValue() == null) {
+						System.out.println("\nVehicleDTO id="+entry.getKey()+" : Le véhicule rentre à la base");
+						target = this.targetingFacility();
+					}
+					
+					// Attribution à un feu réel --> target sur le feu
+					else {
+						System.out.println("\nVehicleDTO id="+entry.getKey()+" Fire id="+entry.getValue());
+						target = this.targetingFire(entry);
+					}
+					
+					// Création de la route pour aller à la target
+					itinérairesMap = this.setRoute(vehicleDTO, target, itinérairesMap);
+					
+				// Si un véhicule possède déjà un itinéraire
+				} else if (itinérairesMap.get(vehicleDTO.getId()) != null) {
+					System.out.println("\nVehicleDTO id="+entry.getKey()+" Fire id="+entry.getValue()+" : Connaissance de l'itinéraire");
+				}
+				
+				// La target est la même qu'à la dernière itération
+				else {
+					
+					System.out.println("\nVehicleDTO id="+entry.getKey()+" Target id="+entry.getValue()+" : Itinéraire inchangé");
+					System.out.println("id="+vehicleDTO.getId()+" size="+itinérairesMap.get(vehicleDTO.getId()).size()+" "+itinérairesMap.get(vehicleDTO.getId()));
+					
 					try {
 						// plante quand le feu à été éteint
-						FireDTO fireTarget = Comm.getFire(entry.getValue());
-						target = new Coord(fireTarget.getLon(), fireTarget.getLat());
-						System.out.println("MouvementRunnable: la destination est à Longitude="+target.getLon()+" Lattitude="+target.getLat());
-						newRoute = Comm.getItineraire(new Coord(vehicleDTO.getLon(), vehicleDTO.getLat()),
-								new Coord(target.getLon(), target.getLat()));
-						itinérairesMap.put(vehicleDTO.getId(), newRoute);
+						target =targetingFire(entry);
+						System.out.println();
+						itinérairesMap = this.setRoute(vehicleDTO, target, itinérairesMap);
 					} catch (Exception e) {
-						System.out.println("MouvementRunnable Erreur: retour à la base");
-						target = new Coord(FACILITY_COORDS.getLon(), FACILITY_COORDS.getLat());
-						newRoute = Comm.getItineraire(new Coord(vehicleDTO.getLon(), vehicleDTO.getLat()),
-								new Coord(target.getLon(), target.getLat()));
-						// TODO: mettre en dernier la position du feu
-						System.out.println(newRoute);
-						itinérairesMap.put(vehicleDTO.getId(), newRoute);
+						System.out.println("Erreur: Fire non trouvé, retour à la base");
+						target = targetingFacility();
+						itinérairesMap = this.setRoute(vehicleDTO, target, itinérairesMap);
 					}
 
 				}
-				System.out.println(itinérairesMap.get(vehicleDTO.getId()));
 			}
-			// 
-			System.out.println("MouvementRunnable: On attribut à chaque véhicule son prochain emplacement");
+			*/
+			// On met à la prochaine coordonnées chaque vehicule
 			for (Entry<Integer, List<Coord>> entry : itinérairesMap.entrySet()) {
+				
 				vehicleDTO = Comm.getVehicle(entry.getKey());
 				List<Coord> routeCoords = entry.getValue();
-				// le véhicule bouge seulement s'il possède une destination
-				if (routeCoords.size() > 1) {
+				
+				// le véhicule bouge seulement s'il lui reste des déplacements à réaliser
+				if (routeCoords.size() > 0) {
+					
+					// Possible itinéraire dont la première coordonnées est celle du véhicule
 					if (routeCoords.get(0) == new Coord(vehicleDTO.getLon(),vehicleDTO.getLat())) {
 						routeCoords.remove(0);
 					}
-					// System.out.println("MouvementRunnable: Vehicle id="+vehicleDTO.getId()+" vers cible ={"+routeCoords.get(0).getLat()+","+routeCoords.get(0).getLon()+"}");
+					
+					System.out.println();
 					vehicleDTO.setLat(routeCoords.get(0).getLat());
 					vehicleDTO.setLon(routeCoords.get(0).getLon());
 					routeCoords.remove(0);
 					Comm.putUpdateVehicle(vehicleDTO);
 				}
+				
+				// Si la liste des feux fraîchement récupérée ne contient pas le feu target du 
+				// véhicule, réinitialise son itinéraire pour renvoie à la facility
 				else if (!Comm.getFires().contains(vehicleFireIdMap.get(vehicleDTO.getId()))) {
 					itinérairesMap.put(entry.getKey(), null);
 				}
 			}
 			// Sauvegarde de l'attribution des véhicules sur les feux
 			oldMap = vehicleFireIdMap;
+			
+			// Attente pour redéclenchement du Thread
 			try {
 				Thread.sleep(2000);
 			} catch (InterruptedException e) {
@@ -130,11 +176,30 @@ public class MouvementRunnable implements Runnable {
 			}
 		}
 	}
-
-	public boolean returnTofacility(VehicleDTO vehicleDTO) {
-		boolean ret = false;
-		vehicleDTO.setLat(FACILITY_COORDS.getLon());
-		vehicleDTO.setLon(FACILITY_COORDS.getLat());
-		return ret;
+	
+	private Coord targetingFacility() {
+		Coord target = new Coord(FACILITY_COORDS.getLon(), FACILITY_COORDS.getLat());
+		return target;
+	}
+	
+	private Coord targetingFire(Entry<Integer, Integer> entry) {
+		Coord target;
+		try {
+			FireDTO fireTarget = Comm.getFire(entry.getValue());
+			target = new Coord(fireTarget.getLon(), fireTarget.getLat());
+		} catch (Exception e) {
+			FireDTO fireTarget = Comm.getFire(entry.getValue());
+			target = this.targetingFacility();
+		}
+		return target;
+	}
+	
+	private Map<Integer, List<Coord>> setRoute(VehicleDTO vehicleDTO, Coord target, Map<Integer, List<Coord>> itinérairesMap) {
+		List<Coord> newRoute = Comm.getItineraire(new Coord(vehicleDTO.getLon(), vehicleDTO.getLat()),
+				new Coord(target.getLon(), target.getLat()));
+		newRoute.add(target);
+		System.out.println("id="+vehicleDTO.getId()+" size="+newRoute.size()+" "+newRoute.toString());
+		itinérairesMap.put(vehicleDTO.getId(), newRoute);
+		return itinérairesMap;
 	}
 }

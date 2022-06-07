@@ -144,7 +144,7 @@ public class InterventionRunnable implements Runnable {
 			
 			System.out.println("InterventionRunnable: On attend");
 			try {
-				Thread.sleep(10000);
+				Thread.sleep(60000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
