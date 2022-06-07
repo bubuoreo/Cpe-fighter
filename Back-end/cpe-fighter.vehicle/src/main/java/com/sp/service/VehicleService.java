@@ -1,6 +1,5 @@
 package com.sp.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +25,6 @@ public class VehicleService {
 		List<FireDTO> firesList = Comm.getFires();
 		return firesList;
 	}
+
 	
 }

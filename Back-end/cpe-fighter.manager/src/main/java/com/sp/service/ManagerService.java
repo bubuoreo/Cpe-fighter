@@ -36,11 +36,11 @@ public class ManagerService {
 		List<VehicleDTO> vehiclesList = Comm.getVehicles();
 		List<Object> returnList = new ArrayList<Object>();
 		returnList.add(firesList.get(0));
-		List<VehicleDTO> tmp = new ArrayList<VehicleDTO>();
+		List<VehicleDTO> my_vehicule = new ArrayList<VehicleDTO>();
 		for (VehicleDTO vehicleDTO : vehiclesList) {
 			if ((int) vehicleDTO.getFacilityRefID() == (int) facilityRefId) {
 				System.out.println(vehicleDTO.getId());
-				tmp.add(vehicleDTO);
+				my_vehicule.add(vehicleDTO);
 			}
 		}
 		
