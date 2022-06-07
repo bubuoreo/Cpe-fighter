@@ -71,60 +71,33 @@ public class MouvementRunnable implements Runnable {
 					// Création de la route pour aller à la target
 					itinérairesMap = this.setRoute(vehicleDTO, target, itinérairesMap);
 				} else {
-					// TODO: Si FireId est null --> Itinéraire vers la base, on le change
+					// Si FireId est null --> Itinéraire vers la base, on le change
 					if (entry.getValue() == null) {
 						itinérairesMap.put(entry.getKey(), null);
 						System.out.println("\nVehicleDTO id=" + entry.getKey() + " Fire id=" + entry.getValue()
 								+ " : Réinitialisation itinéraire");
-					} else {
-						System.out.println("\nVehicleDTO id=" + entry.getKey() + " Fire id=" + entry.getValue()
-								+ " : Connaissance de l'itinéraire");
-						System.out.println(
-								"id=" + vehicleDTO.getId() + " size=" + itinérairesMap.get(vehicleDTO.getId()).size()
-										+ " " + itinérairesMap.get(vehicleDTO.getId()));
 					}
+					// TODO: regarder si la dernière coordonnées c'est la base et que FireId != null
+					// --> itinéraire à null
+//					if (itinérairesMap.get(entry.getKey()).size() > 0) {
+//
+//						if ((itinérairesMap.get(entry.getKey()).get(itinérairesMap.get(entry.getKey()).size() - 1))
+//								.equals(FACILITY_COORDS)) {
+//							System.out.println("\nLa destination de Vehicle id=" + entry.getKey()
+//									+ " est la caserne alors qu'il devrait aller vers Fire id=" + entry.getValue());
+//							itinérairesMap.put(entry.getKey(), null);
+//						} 
+						else {
+							System.out.println("\nVehicleDTO id=" + entry.getKey() + " Fire id=" + entry.getValue()
+									+ " : Connaissance de l'itinéraire");
+							System.out.println("id=" + vehicleDTO.getId() + " size="
+									+ itinérairesMap.get(vehicleDTO.getId()).size() + " "
+									+ itinérairesMap.get(vehicleDTO.getId()));
+						}
+//					}
 				}
 			}
 
-			/*
-			 * // La target est nouvelle if (entry.getValue() != oldMap.get(entry.getKey()))
-			 * {
-			 * 
-			 * System.out.println("\nVehicleDTO id="+entry.getKey()+" Target id="+entry.
-			 * getValue()+" : Nouvel itinéraire");
-			 * 
-			 * // Attribution de feu à null --> target sur la base if (entry.getValue() ==
-			 * null) { System.out.println("\nVehicleDTO id="+entry.getKey()
-			 * +" : Le véhicule rentre à la base"); target = this.targetingFacility(); }
-			 * 
-			 * // Attribution à un feu réel --> target sur le feu else {
-			 * System.out.println("\nVehicleDTO id="+entry.getKey()+" Fire id="+entry.
-			 * getValue()); target = this.targetingFire(entry); }
-			 * 
-			 * // Création de la route pour aller à la target itinérairesMap =
-			 * this.setRoute(vehicleDTO, target, itinérairesMap);
-			 * 
-			 * // Si un véhicule possède déjà un itinéraire } else if
-			 * (itinérairesMap.get(vehicleDTO.getId()) != null) {
-			 * System.out.println("\nVehicleDTO id="+entry.getKey()+" Fire id="+entry.
-			 * getValue()+" : Connaissance de l'itinéraire"); }
-			 * 
-			 * // La target est la même qu'à la dernière itération else {
-			 * 
-			 * System.out.println("\nVehicleDTO id="+entry.getKey()+" Target id="+entry.
-			 * getValue()+" : Itinéraire inchangé");
-			 * System.out.println("id="+vehicleDTO.getId()+" size="+itinérairesMap.get(
-			 * vehicleDTO.getId()).size()+" "+itinérairesMap.get(vehicleDTO.getId()));
-			 * 
-			 * try { // plante quand le feu à été éteint target =targetingFire(entry);
-			 * System.out.println(); itinérairesMap = this.setRoute(vehicleDTO, target,
-			 * itinérairesMap); } catch (Exception e) {
-			 * System.out.println("Erreur: Fire non trouvé, retour à la base"); target =
-			 * targetingFacility(); itinérairesMap = this.setRoute(vehicleDTO, target,
-			 * itinérairesMap); }
-			 * 
-			 * } }
-			 */
 			// On met à la prochaine coordonnées chaque vehicule
 			for (Entry<Integer, List<Coord>> entry : itinérairesMap.entrySet()) {
 
@@ -145,7 +118,7 @@ public class MouvementRunnable implements Runnable {
 						routeCoords.remove(0);
 						Comm.putUpdateVehicle(vehicleDTO);
 					}
-					
+
 					// Si la liste des feux fraîchement récupérée ne contient pas le feu target du
 					// véhicule, réinitialise son itinéraire pour renvoie à la facility
 					else if (!Comm.getFires().contains(vehicleFireIdMap.get(vehicleDTO.getId()))) {
