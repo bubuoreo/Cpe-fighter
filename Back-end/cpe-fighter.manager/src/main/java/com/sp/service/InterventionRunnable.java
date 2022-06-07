@@ -101,17 +101,20 @@ public class InterventionRunnable implements Runnable {
 			 * On possède une liste de véhicules qu'on peut rentrer à la caserne
 			 * On passe à la gestion des nouveaux feux
 			 */
-			System.out.println("gestion des nouveaux feux");
+			System.out.println("Gestion des nouveaux feux");
 			for(Entry<Integer, Integer> entry: vehicleFireIdMap.entrySet()) {
 				// envoyer le véhicule sur le feu car non affecté à un feu
 				if (entry.getValue() == null) {
+					System.out.println("Il y a des véhicules sans activité");
 					// si il reste encore des feux à attribuer
 					if (newFireIdList.size() != 0) {
+						System.out.println("Il y a des nouveaux feux à éteindre");
 						VehicleDTO vehicleDTO = Comm.getVehicle(entry.getKey());
 						// déclaration de la target feu
 						FireDTO fireTarget = Comm.getFire(newFireIdList.get(0));
 						newFireIdList.remove(0);
 						// placement du véhicule sur le feu cible
+						System.out.println("Attribution au véhicule id="+vehicleDTO.getId()+" a feu id="+fireTarget.getId());
 						vehicleDTO.setLat(fireTarget.getLat());
 						vehicleDTO.setLon(fireTarget.getLon());
 						// PUT pouyr téléportation vehicule
@@ -138,6 +141,7 @@ public class InterventionRunnable implements Runnable {
 			// Sauvegarder la liste tmp en temps que fireList
 			fireList = tmp;
 			
+			System.out.println("On attend");
 			try {
 				Thread.sleep(15000);
 			} catch (InterruptedException e) {
