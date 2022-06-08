@@ -23,31 +23,8 @@ public class Comm {
 	private static final String TEAM_UUID = "c230e0e0-8de9-4c39-8dec-e246dc0c6334";
 	private static final Integer FACILITY_ID = 267;
 
-	public static List<FireDTO> getFires() {
-		
-		System.out.println("requête pour obtenir les feux");
-		RestTemplate restTemplate = new RestTemplate();
-		// Send request with GET method and default Headers.
-		FireDTO[] fireDTOs = restTemplate.getForObject(URL_FIRE, FireDTO[].class);
-		List<FireDTO> firesList = new ArrayList<FireDTO>();
-		for (FireDTO fireDTO : fireDTOs) {
-			firesList.add(fireDTO);
-		}
-		return firesList;
-	}
 	
-	public static List<FireDTO> getFacility() {
-		
-		System.out.println("requête pour obtenir notre facility");
-		RestTemplate restTemplate = new RestTemplate();
-		// Send request with GET method and default Headers.
-		FireDTO[] fireDTOs = restTemplate.getForObject(URL_FACILITY + "/" + FACILITY_ID, FireDTO[].class);
-		List<FireDTO> firesList = new ArrayList<FireDTO>();
-		for (FireDTO fireDTO : fireDTOs) {
-			firesList.add(fireDTO);
-		}
-		return firesList;
-	}
+
 
 	public static List<VehicleDTO> getVehicles() {
 		

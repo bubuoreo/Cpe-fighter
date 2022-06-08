@@ -21,10 +21,5 @@ public class VehicleService {
 		return vehiclesList;
 	}
 
-	public List<FireDTO> getFires() {
-		List<FireDTO> firesList = Comm.getFires();
-		return firesList;
-	}
-
 	
 }

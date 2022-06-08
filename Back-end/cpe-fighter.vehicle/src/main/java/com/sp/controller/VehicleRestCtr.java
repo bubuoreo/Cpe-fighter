@@ -24,11 +24,4 @@ public class VehicleRestCtr {
 		return vehiclesList;
 	}
 	
-	@GetMapping("/manager/fire")
-	public List<FireDTO> getFires() {
-		System.out.println("Récupération des feux");
-		List<FireDTO> firesList = vehicleService.getFires();
-		return firesList;
-	}
-
 }
