@@ -102,19 +102,19 @@ public class InterventionRunnable implements Runnable {
 			 * On a les nouveaux feux et les feux qui viennent de s'éteindre
 			 * gestion rapatriement des camions en charge des feux disparus
 			 */
-			for(Entry<Integer, Integer> entry: vehicleFireIdMap.entrySet()) {
-				if (disapearedFireIdList.contains(entry.getValue())) {
-					// MAJ map --> passe l'attribution de son feu à null
-					entry.setValue(null);
-				}
-		    }
+//			for(Entry<Integer, Integer> entry: vehicleFireIdMap.entrySet()) {
+//				if (disapearedFireIdList.contains(entry.getValue())) {
+//					// MAJ map --> passe l'attribution de son feu à null
+//					entry.setValue(null);
+//				}
+//		    }
 			/*
 			 * On possède une liste de véhicules qu'on peut rentrer à la caserne
 			 * On passe à la gestion des nouveaux feux
 			 */
 			for(Entry<Integer, Integer> entry: vehicleFireIdMap.entrySet()) {
 				// envoyer le véhicule sur le feu car non affecté à un feu
-				if (entry.getValue() == null) {
+				if (entry.getValue() == null || disapearedFireIdList.contains(entry.getValue())) {
 					System.out.println("InterventionRunnable: Le véhicules id="+entry.getKey()+" est sans activité");
 					// si il reste encore des feux à attribuer
 					if (newFireIdList.size() != 0) {
@@ -133,7 +133,8 @@ public class InterventionRunnable implements Runnable {
 					}
 					else {
 						
-						callbackVehicleList.add(entry.getKey());
+//						callbackVehicleList.add(entry.getKey());
+						entry.setValue(null);
 					}
 				}
 		    }
@@ -144,7 +145,7 @@ public class InterventionRunnable implements Runnable {
 			
 			System.out.println("InterventionRunnable: On attend");
 			try {
-				Thread.sleep(60000);
+				Thread.sleep(2000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

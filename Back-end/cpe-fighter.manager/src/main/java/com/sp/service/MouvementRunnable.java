@@ -9,6 +9,7 @@ import com.DTO.Coord;
 import com.DTO.FacilityDTO;
 import com.DTO.FireDTO;
 import com.DTO.VehicleDTO;
+import com.ENUM.VehicleType;
 import com.sp.tools.Comm;
 
 /**
@@ -123,6 +124,13 @@ public class MouvementRunnable implements Runnable {
 					// véhicule, réinitialise son itinéraire pour renvoie à la facility
 					else if (!Comm.getFires().contains(vehicleFireIdMap.get(vehicleDTO.getId()))) {
 						itinérairesMap.put(entry.getKey(), null);
+					}
+
+					// vient d'arriver sur le feu
+					else {
+						VehicleType vehicleType = vehicleDTO.getType();
+						vehicleDTO.setLiquidQuantity(vehicleDTO.getLiquidQuantity()-2*vehicleType.getLiquidConsumption());
+						Comm.putUpdateVehicle(vehicleDTO);
 					}
 				}
 			}
