@@ -172,7 +172,7 @@
 					}
 					else {
 						console.log('faci',faci)
-						L.marker([lat, lon], { icon: vehicleIcon }).addTo(vehicleTypeMap.get(type)).addTo(liquidTypeMap.get(liquidType)).addTo(facilityMap.get('1000')).bindPopup("<h3>" + type + " " + id + "</h3>" + "crewMember:" + crew + "</br>fuel" + fuel + "</br>liquidQuantity:" + liquidQuantity + "</br>liquidType:" + liquidType);
+						L.marker([lat, lon], { icon: vehicleIcon }).addTo(vehicleTypeMap.get(type)).addTo(liquidTypeMap.get(liquidType)).addTo(facilityMap.get('1000')).bindPopup("<h3>" + type + " " + id + "</h3>" + "crewMember:" + crew + "</br>fuel:" + fuel + "</br>liquidQuantity:" + liquidQuantity + "</br>liquidType:" + liquidType);
 
 					}
 				}
